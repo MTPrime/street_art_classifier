@@ -178,6 +178,7 @@ if __name__ == '__main__':
             steps_per_epoch=2000,
             epochs=1,
             validation_data=validation_generator,
-            validation_steps=200)
+            validation_steps=200,
+            use_multiprocessing=True)
     
     model.save_weights('first_try.h5')
