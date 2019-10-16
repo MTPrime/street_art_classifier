@@ -1,17 +1,22 @@
-
 import numpy as np
 np.random.seed(1337)  # for reproducibility
 
 import os 
 os.environ['TF_KERAS'] = '1'
 
-from tensorflow import keras
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten
-from tensorflow.keras.layers import Conv2D, MaxPooling2D
+# from tensorflow import keras
+# from tensorflow.keras.models import Sequential
+# from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten
+# from tensorflow.keras.layers import Conv2D, MaxPooling2D
+# from tensorflow.keras.utils import to_categorical
+# # from keras_radam import RAdam
+# from keras.preprocessing.image import ImageDataGenerator
+
+import tensorflow as tf
+from tensorflow.python.keras.layers import Dropout, Dense, Activation, Flatten, Conv2D, MaxPooling2D
+from tensorflow.python.keras.models import Sequential
 from tensorflow.keras.utils import to_categorical
-# from keras_radam import RAdam
-from keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 def load_and_featurize_data():
     # the data, shuffled and split between train and test sets
@@ -109,7 +114,7 @@ if __name__ == '__main__':
     # Image Processesing
     
     model = Sequential()
-    model.add(Conv2D(12, (3, 3), input_shape=(150, 150, 3)))
+    model.add(Conv2D(12, (3, 3), input_shape=(64, 64, 3)))
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
 
@@ -139,7 +144,7 @@ if __name__ == '__main__':
             horizontal_flip=True)
 
     train_generator = datagen.flow_from_directory('data/train_test_split/train',  
-                                                target_size=(150, 150),
+                                                target_size=(64, 64),
                                                 batch_size=batch_size,
                                                 class_mode='categorical')
     
@@ -151,7 +156,7 @@ if __name__ == '__main__':
     #         horizontal_flip=True)
 
     test_generator = datagen.flow_from_directory('data/train_test_split/test',
-                                                target_size=(150,150),
+                                                target_size=(64,64),
                                                 batch_size=batch_size,
                                                 class_mode='categorical')
                                                 
@@ -168,7 +173,7 @@ if __name__ == '__main__':
     # this is a similar generator, for validation data
     validation_generator = datagen.flow_from_directory(
             'data/train_test_split/val',
-            target_size=(150, 150),
+            target_size=(64, 64),
             batch_size=batch_size,
             class_mode='categorical')
 
@@ -176,9 +181,10 @@ if __name__ == '__main__':
     model.fit_generator(
             train_generator,
             steps_per_epoch=2000,
-            epochs=1,
+            epochs=3,
             validation_data=validation_generator,
             validation_steps=200,
             use_multiprocessing=True)
     
-    model.save_weights('first_try.h5')
+    model.save_weights('model_weights.h5')
+    model.save('model.hf')
