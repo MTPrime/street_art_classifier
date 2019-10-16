@@ -13,20 +13,20 @@ if __name__ == '__main__':
     #Image Processing
     model = Sequential()
     model.add(Conv2D(12, (3, 3), input_shape=input_shape))
-    model.add(Activation('tanh'))
+    model.add(Activation('sigmoid'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
 
     model.add(Conv2D(12, (3, 3)))
-    model.add(Activation('tanh'))
+    model.add(Activation('sigmoid'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
 
     model.add(Conv2D(12, (3, 3)))
-    model.add(Activation('tanh'))
+    model.add(Activation('sigmoid'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     
     model.add(Flatten())  # this converts our 3D feature maps to 1D feature vectors
     model.add(Dense(64))
-    model.add(Activation('tanh'))
+    model.add(Activation('sigmoid'))
     model.add(Dropout(0.5))
     model.add(Dense(2))
     model.add(Activation('sigmoid'))
