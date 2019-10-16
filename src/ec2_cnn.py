@@ -8,7 +8,7 @@ if __name__ == '__main__':
     img_rows, img_cols = 64, 64  # the size of the MNIST images KEEP
     input_shape = (img_rows, img_cols, 3)  # 1 channel image input (grayscale) KEEP
     ts = (64,64)
-    batch_size = 50
+    batch_size = 16
 
     #Image Processing
     model = Sequential()
@@ -36,11 +36,12 @@ if __name__ == '__main__':
                 metrics=['accuracy'])
     
     
-    datagen = ImageDataGenerator(rescale=1./255
-            # shear_range=0.2,
-            # zoom_range=0.2,
-            # horizontal_flip=True
+    datagen = ImageDataGenerator(rescale=1./255,
+            shear_range=0.2,
+            zoom_range=0.2,
+            horizontal_flip=True
             )
+    test_datagen = ImageDataGenerator()
 
     train_generator = datagen.flow_from_directory('data/train_test_split/train',  
                                                 target_size=ts,
@@ -48,14 +49,14 @@ if __name__ == '__main__':
                                                 class_mode='categorical')
     
 
-    test_generator = datagen.flow_from_directory('data/train_test_split/test',
+    test_generator = test_datagen.flow_from_directory('data/train_test_split/test',
                                                 target_size=ts,
                                                 batch_size=batch_size,
                                                 class_mode='categorical')
                                                 
 
     # this is a similar generator, for validation data
-    validation_generator = datagen.flow_from_directory(
+    validation_generator = test_datagen.flow_from_directory(
             'data/train_test_split/val',
             target_size=ts,
             batch_size=batch_size,
