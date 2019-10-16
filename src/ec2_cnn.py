@@ -68,7 +68,7 @@ if __name__ == '__main__':
     
     model.fit_generator(
             train_generator,
-            steps_per_epoch=1000//batch_size,
+            steps_per_epoch=2000//batch_size,
             epochs=1,
-            validation_steps=200//batch_size,
+            validation_steps=800//batch_size,
             validation_data=validation_generator)
