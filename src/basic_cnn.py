@@ -15,8 +15,8 @@ os.environ['TF_KERAS'] = '1'
 import tensorflow as tf
 from tensorflow.python.keras.layers import Dropout, Dense, Activation, Flatten, Conv2D, MaxPooling2D
 from tensorflow.python.keras.models import Sequential
-from tensorflow.keras.utils import to_categorical
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.python.keras.utils import to_categorical
+from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
 
 def load_and_featurize_data():
     # the data, shuffled and split between train and test sets
