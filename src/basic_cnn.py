@@ -4,88 +4,88 @@ np.random.seed(1337)  # for reproducibility
 import os 
 os.environ['TF_KERAS'] = '1'
 
-# from tensorflow import keras
-# from tensorflow.keras.models import Sequential
-# from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten
-# from tensorflow.keras.layers import Conv2D, MaxPooling2D
-# from tensorflow.keras.utils import to_categorical
-# # from keras_radam import RAdam
-# from keras.preprocessing.image import ImageDataGenerator
+from tensorflow import keras
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten
+from tensorflow.keras.layers import Conv2D, MaxPooling2D
+from tensorflow.keras.utils import to_categorical
+# from keras_radam import RAdam
+from keras.preprocessing.image import ImageDataGenerator
 
-import tensorflow as tf
-from tensorflow.python.keras.layers import Dropout, Dense, Activation, Flatten, Conv2D, MaxPooling2D
-from tensorflow.python.keras.models import Sequential
-from tensorflow.python.keras.utils import to_categorical
-from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
+# import tensorflow as tf
+# from tensorflow.python.keras.layers import Dropout, Dense, Activation, Flatten, Conv2D, MaxPooling2D
+# from tensorflow.python.keras.models import Sequential
+# from tensorflow.python.keras.utils import to_categorical
+# from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
 
-def load_and_featurize_data():
-    # the data, shuffled and split between train and test sets
-    (X_train, y_train), (X_test, y_test) = mnist.load_data()
+# def load_and_featurize_data():
+#     # the data, shuffled and split between train and test sets
+#     (X_train, y_train), (X_test, y_test) = mnist.load_data()
 
-    # reshape input into format Conv2D layer likes
-    X_train = X_train.reshape(X_train.shape[0], img_rows, img_cols, 1)
-    X_test = X_test.reshape(X_test.shape[0], img_rows, img_cols, 1)
+#     # reshape input into format Conv2D layer likes
+#     X_train = X_train.reshape(X_train.shape[0], img_rows, img_cols, 1)
+#     X_test = X_test.reshape(X_test.shape[0], img_rows, img_cols, 1)
 
-    # don't change conversion or normalization
-    X_train = X_train.astype('float32') # data was uint8 [0-255]
-    X_test = X_test.astype('float32')  # data was uint8 [0-255]
-    X_train /= 255 # normalizing (scaling from 0 to 1)
-    X_test /= 255  # normalizing (scaling from 0 to 1)
+#     # don't change conversion or normalization
+#     X_train = X_train.astype('float32') # data was uint8 [0-255]
+#     X_test = X_test.astype('float32')  # data was uint8 [0-255]
+#     X_train /= 255 # normalizing (scaling from 0 to 1)
+#     X_test /= 255  # normalizing (scaling from 0 to 1)
 
-    print('X_train shape:', X_train.shape)
-    print(X_train.shape[0], 'train samples')
-    print(X_test.shape[0], 'test samples')
+#     print('X_train shape:', X_train.shape)
+#     print(X_train.shape[0], 'train samples')
+#     print(X_test.shape[0], 'test samples')
 
-    # convert class vectors to binary class matrices (don't change)
-    Y_train = to_categorical(y_train, nb_classes) # cool
-    Y_test = to_categorical(y_test, nb_classes)   
-    # in Ipython you should compare Y_test to y_test
-    return X_train, X_test, Y_train, Y_test
+#     # convert class vectors to binary class matrices (don't change)
+#     Y_train = to_categorical(y_train, nb_classes) # cool
+#     Y_test = to_categorical(y_test, nb_classes)   
+#     # in Ipython you should compare Y_test to y_test
+#     return X_train, X_test, Y_train, Y_test
 
-def define_model(nb_filters, kernel_size, input_shape, pool_size):
-    model = Sequential() # model is a linear stack of layers (don't change)
+# def define_model(nb_filters, kernel_size, input_shape, pool_size):
+#     model = Sequential() # model is a linear stack of layers (don't change)
 
-    # note: the convolutional layers and dense layers require an activation function
-    # see https://keras.io/activations/
-    # and https://en.wikipedia.org/wiki/Activation_function
-    # options: 'linear', 'sigmoid', 'tanh', 'relu', 'softplus', 'softsign'
+#     # note: the convolutional layers and dense layers require an activation function
+#     # see https://keras.io/activations/
+#     # and https://en.wikipedia.org/wiki/Activation_function
+#     # options: 'linear', 'sigmoid', 'tanh', 'relu', 'softplus', 'softsign'
 
-    model.add(Conv2D(nb_filters, (kernel_size[0], kernel_size[1]),
-                        padding='same', 
-                        input_shape=input_shape)) #first conv. layer  KEEP
-    model.add(Activation('relu')) # Activation specification necessary for Conv2D and Dense layers
+#     model.add(Conv2D(nb_filters, (kernel_size[0], kernel_size[1]),
+#                         padding='same', 
+#                         input_shape=input_shape)) #first conv. layer  KEEP
+#     model.add(Activation('relu')) # Activation specification necessary for Conv2D and Dense layers
 
-    model.add(Conv2D(nb_filters, (kernel_size[0], kernel_size[1]), padding='same')) #2nd conv. layer KEEP
-    model.add(Activation('relu'))
+#     model.add(Conv2D(nb_filters, (kernel_size[0], kernel_size[1]), padding='same')) #2nd conv. layer KEEP
+#     model.add(Activation('relu'))
 
-    model.add(MaxPooling2D(pool_size=pool_size)) # decreases size, helps prevent overfitting
-    model.add(Dropout(0.5)) # zeros out some fraction of inputs, helps prevent overfitting
+#     model.add(MaxPooling2D(pool_size=pool_size)) # decreases size, helps prevent overfitting
+#     model.add(Dropout(0.5)) # zeros out some fraction of inputs, helps prevent overfitting
 
-    model.add(Flatten()) # necessary to flatten before going into conventional dense layer  KEEP
-    print('Model flattened out to ', model.output_shape)
+#     model.add(Flatten()) # necessary to flatten before going into conventional dense layer  KEEP
+#     print('Model flattened out to ', model.output_shape)
 
-    # now start a typical neural network
-    model.add(Dense(32)) # (only) 32 neurons in this layer, really?   KEEP
-    model.add(Activation('relu'))
+#     # now start a typical neural network
+#     model.add(Dense(32)) # (only) 32 neurons in this layer, really?   KEEP
+#     model.add(Activation('relu'))
 
-    model.add(Dropout(0.5)) # zeros out some fraction of inputs, helps prevent overfitting
+#     model.add(Dropout(0.5)) # zeros out some fraction of inputs, helps prevent overfitting
 
-    model.add(Dense(nb_classes)) # 10 final nodes (one for each class)  KEEP
-    model.add(Activation('softmax')) # softmax at end to pick between classes 0-9 KEEP
+#     model.add(Dense(nb_classes)) # 10 final nodes (one for each class)  KEEP
+#     model.add(Activation('softmax')) # softmax at end to pick between classes 0-9 KEEP
 
-    # model.compile(RAdam(total_steps=10000, warmup_proportion=0.1, min_lr=1e-5),loss='categorical_crossentropy',metrics=['accuracy'])
+#     # model.compile(RAdam(total_steps=10000, warmup_proportion=0.1, min_lr=1e-5),loss='categorical_crossentropy',metrics=['accuracy'])
         
-    model.compile(loss='categorical_crossentropy',
-                optimizer='adam',
-                metrics=['accuracy'])
-    return model
+#     model.compile(loss='categorical_crossentropy',
+#                 optimizer='adam',
+#                 metrics=['accuracy'])
+#     return model
 
 if __name__ == '__main__':
     # # # important inputs to the model: don't changes the ones marked KEEP 
     batch_size = 30  # number of training samples used at a time to update the weights
     nb_classes = 2   # number of output possibilites: [0 - 9] KEEP
     nb_epoch = 10    # number of passes through the entire train dataset before weights "final"
-    img_rows, img_cols = 150, 150  # the size of the MNIST images KEEP
+    img_rows, img_cols = 32, 32  # the size of the MNIST images KEEP
     input_shape = (img_rows, img_cols, 3)  # 1 channel image input (grayscale) KEEP
     nb_filters = 12  # number of convolutional filters to use
     pool_size = (2, 2) #2,2 pooling decreases image size, reduces computation, adds translational invariance
@@ -114,7 +114,7 @@ if __name__ == '__main__':
     # Image Processesing
     
     model = Sequential()
-    model.add(Conv2D(12, (3, 3), input_shape=(64, 64, 3)))
+    model.add(Conv2D(12, (3, 3), input_shape=input_shape))
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
 
@@ -144,7 +144,7 @@ if __name__ == '__main__':
             horizontal_flip=True)
 
     train_generator = datagen.flow_from_directory('data/train_test_split/train',  
-                                                target_size=(64, 64),
+                                                target_size=(32, 32),
                                                 batch_size=batch_size,
                                                 class_mode='categorical')
     
@@ -156,7 +156,7 @@ if __name__ == '__main__':
     #         horizontal_flip=True)
 
     test_generator = datagen.flow_from_directory('data/train_test_split/test',
-                                                target_size=(64,64),
+                                                target_size=(32,32),
                                                 batch_size=batch_size,
                                                 class_mode='categorical')
                                                 
@@ -173,7 +173,7 @@ if __name__ == '__main__':
     # this is a similar generator, for validation data
     validation_generator = datagen.flow_from_directory(
             'data/train_test_split/val',
-            target_size=(64, 64),
+            target_size=(32, 32),
             batch_size=batch_size,
             class_mode='categorical')
 
@@ -181,7 +181,7 @@ if __name__ == '__main__':
     model.fit_generator(
             train_generator,
             steps_per_epoch=2000,
-            epochs=3,
+            epochs=1,
             validation_data=validation_generator,
             validation_steps=200)
     
