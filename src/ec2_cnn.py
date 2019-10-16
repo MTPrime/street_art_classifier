@@ -61,6 +61,6 @@ if __name__ == '__main__':
 
     
     model.fit_generator(
-            train_generator,,
+            train_generator,
             epochs=1,
             validation_data=validation_generator)
