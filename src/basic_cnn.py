@@ -4,19 +4,19 @@ np.random.seed(1337)  # for reproducibility
 import os 
 os.environ['TF_KERAS'] = '1'
 
-from tensorflow import keras
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten
-from tensorflow.keras.layers import Conv2D, MaxPooling2D
-from tensorflow.keras.utils import to_categorical
-# from keras_radam import RAdam
-from keras.preprocessing.image import ImageDataGenerator
+# from tensorflow import keras
+# from tensorflow.keras.models import Sequential
+# from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten
+# from tensorflow.keras.layers import Conv2D, MaxPooling2D
+# from tensorflow.keras.utils import to_categorical
+# # from keras_radam import RAdam
+# from keras.preprocessing.image import ImageDataGenerator
 
-# import tensorflow as tf
-# from tensorflow.python.keras.layers import Dropout, Dense, Activation, Flatten, Conv2D, MaxPooling2D
-# from tensorflow.python.keras.models import Sequential
-# from tensorflow.python.keras.utils import to_categorical
-# from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
+import tensorflow as tf
+from tensorflow.python.keras.layers import Dropout, Dense, Activation, Flatten, Conv2D, MaxPooling2D
+from tensorflow.python.keras.models import Sequential
+from tensorflow.python.keras.utils import to_categorical
+from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
 
 # def load_and_featurize_data():
 #     # the data, shuffled and split between train and test sets
