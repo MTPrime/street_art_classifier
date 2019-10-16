@@ -41,7 +41,7 @@ if __name__ == '__main__':
             zoom_range=0.2,
             horizontal_flip=True
             )
-    test_datagen = ImageDataGenerator()
+    test_datagen = ImageDataGenerator(rescale=1./255)
 
     train_generator = datagen.flow_from_directory('data/train_test_split/train',  
                                                 target_size=ts,
