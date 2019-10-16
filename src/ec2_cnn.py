@@ -8,7 +8,7 @@ if __name__ == '__main__':
     img_rows, img_cols = 64, 64  # the size of the MNIST images KEEP
     input_shape = (img_rows, img_cols, 3)  # 1 channel image input (grayscale) KEEP
     ts = (64,64)
-    batch_size = 16
+    batch_size = 50
 
     #Image Processing
     model = Sequential()
