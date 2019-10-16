@@ -46,12 +46,14 @@ if __name__ == '__main__':
     train_generator = datagen.flow_from_directory('data/train_test_split/train',  
                                                 target_size=ts,
                                                 batch_size=batch_size,
-                                                class_mode='categorical')
+                                                class_mode='categorical', 
+                                                classes=['realistic', 'wildstyle'])
     
 
     test_generator = test_datagen.flow_from_directory('data/train_test_split/test',
                                                 target_size=ts,
                                                 batch_size=batch_size,
+                                                classes=['realistic', 'wildstyle'],
                                                 class_mode='categorical')
                                                 
 
@@ -60,12 +62,13 @@ if __name__ == '__main__':
             'data/train_test_split/val',
             target_size=ts,
             batch_size=batch_size,
+            classes=['realistic', 'wildstyle'],
             class_mode='categorical')
 
     
     model.fit_generator(
             train_generator,
-            steps_per_epoch=1000,
+            steps_per_epoch=1000//batch_size,
             epochs=1,
-            validation_steps=200,
+            validation_steps=200//batch_size,
             validation_data=validation_generator)
