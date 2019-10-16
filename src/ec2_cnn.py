@@ -62,7 +62,7 @@ if __name__ == '__main__':
     
     model.fit_generator(
             train_generator,
-            steps_per_epoch=None,
+            steps_per_epoch=1000,
             epochs=1,
             validation_steps=200,
             validation_data=validation_generator)
