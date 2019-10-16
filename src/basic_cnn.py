@@ -11,12 +11,14 @@ os.environ['TF_KERAS'] = '1'
 # from tensorflow.keras.utils import to_categorical
 # # from keras_radam import RAdam
 # from keras.preprocessing.image import ImageDataGenerator
+# from keras.models import load_model
 
-import tensorflow as tf
-from tensorflow.python.keras.layers import Dropout, Dense, Activation, Flatten, Conv2D, MaxPooling2D
-from tensorflow.python.keras.models import Sequential
-from tensorflow.python.keras.utils import to_categorical
-from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
+
+# import tensorflow as tf
+# from tensorflow.python.keras.layers import Dropout, Dense, Activation, Flatten, Conv2D, MaxPooling2D
+# from tensorflow.python.keras.models import Sequential
+# from tensorflow.python.keras.utils import to_categorical
+# from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
 
 # def load_and_featurize_data():
 #     # the data, shuffled and split between train and test sets
@@ -85,7 +87,7 @@ if __name__ == '__main__':
     batch_size = 30  # number of training samples used at a time to update the weights
     nb_classes = 2   # number of output possibilites: [0 - 9] KEEP
     nb_epoch = 10    # number of passes through the entire train dataset before weights "final"
-    img_rows, img_cols = 32, 32  # the size of the MNIST images KEEP
+    img_rows, img_cols = 64, 64  # the size of the MNIST images KEEP
     input_shape = (img_rows, img_cols, 3)  # 1 channel image input (grayscale) KEEP
     nb_filters = 12  # number of convolutional filters to use
     pool_size = (2, 2) #2,2 pooling decreases image size, reduces computation, adds translational invariance
@@ -136,15 +138,12 @@ if __name__ == '__main__':
     model.compile(loss='categorical_crossentropy',
                 optimizer='adam',
                 metrics=['accuracy'])
-    batch_size = 16
+    batch_size = 10
     
-    datagen = ImageDataGenerator(rescale=1./255,
-            shear_range=0.2,
-            zoom_range=0.2,
-            horizontal_flip=True)
+    datagen = ImageDataGenerator()
 
     train_generator = datagen.flow_from_directory('data/train_test_split/train',  
-                                                target_size=(32, 32),
+                                                target_size=(64, 64),
                                                 batch_size=batch_size,
                                                 class_mode='categorical')
     
@@ -156,7 +155,7 @@ if __name__ == '__main__':
     #         horizontal_flip=True)
 
     test_generator = datagen.flow_from_directory('data/train_test_split/test',
-                                                target_size=(32,32),
+                                                target_size=(64,64),
                                                 batch_size=batch_size,
                                                 class_mode='categorical')
                                                 
@@ -173,7 +172,7 @@ if __name__ == '__main__':
     # this is a similar generator, for validation data
     validation_generator = datagen.flow_from_directory(
             'data/train_test_split/val',
-            target_size=(32, 32),
+            target_size=(64, 64),
             batch_size=batch_size,
             class_mode='categorical')
 
@@ -181,9 +180,10 @@ if __name__ == '__main__':
     model.fit_generator(
             train_generator,
             steps_per_epoch=2000,
-            epochs=1,
+            epochs=3,
             validation_data=validation_generator,
             validation_steps=200)
     
-    model.save_weights('model_weights.h5')
-    model.save('model.hf')
+    # model.save_weights('3_epoch_model_weights.h5')
+    # model.save('3_epoch_model.h5')
+    # model = load_model('models/3_epic_model.hf')
