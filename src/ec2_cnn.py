@@ -64,4 +64,5 @@ if __name__ == '__main__':
             train_generator,
             steps_per_epoch=None,
             epochs=1,
+            validation_steps=200,
             validation_data=validation_generator)
