@@ -3,6 +3,8 @@ from tensorflow.python.keras.layers import Dropout, Dense, Activation, Flatten, 
 from tensorflow.python.keras.models import Sequential
 from tensorflow.python.keras.utils import to_categorical
 from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.callbacks import ModelCheckpoint
+
 
 if __name__ == '__main__':
         img_rows, img_cols = 64, 64  # the size of the MNIST images KEEP
@@ -65,7 +67,10 @@ if __name__ == '__main__':
                 batch_size=batch_size,
                 classes=['realistic', 'wildstyle'],
                 class_mode='categorical')
-
+        #Checkpoint
+        filepath="weights-improvement-{epoch:02d}-{val_accuracy:.2f}.hdf5"
+        checkpoint = ModelCheckpoint(filepath, monitor='val_acc', mode='max', save_weights_only=True, save_best_only=True, period=1)
+        callbacks_list = [checkpoint]
 
         model.fit_generator(
                 train_generator,
