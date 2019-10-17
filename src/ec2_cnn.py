@@ -69,13 +69,13 @@ if __name__ == '__main__':
                 class_mode='categorical')
         #Checkpoint
         filepath="weights-improvement-{epoch:02d}-{val_accuracy:.2f}.hdf5"
-        checkpoint = ModelCheckpoint(filepath, monitor='val_acc', mode='max', save_weights_only=True, save_best_only=True, period=1)
+        checkpoint = ModelCheckpoint(filepath, monitor='val_acc', mode='max', save_weights_only=True, save_best_only=True, save_freq=1)
         callbacks_list = [checkpoint]
 
         model.fit_generator(
                 train_generator,
                 steps_per_epoch=2000,
-                epochs=5,
+                epochs=2,
                 validation_steps=800,
                 validation_data=validation_generator)
         
