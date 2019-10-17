@@ -26,7 +26,7 @@ if __name__ == '__main__':
         model.add(MaxPooling2D(pool_size=(2, 2)))
 
         model.add(Flatten())  # this converts our 3D feature maps to 1D feature vectors
-        model.add(Dense(256))
+        model.add(Dense(128))
         model.add(Activation('relu'))
         model.add(Dropout(0.5))
         model.add(Dense(2))
@@ -37,10 +37,10 @@ if __name__ == '__main__':
                         metrics=['accuracy'])
 
 
-        datagen = ImageDataGenerator(rescale=1./255,
-        shear_range=0.2,
-        zoom_range=0.2,
-        horizontal_flip=True
+        datagen = ImageDataGenerator(rescale=1./255
+        # shear_range=0.2,
+        # zoom_range=0.2,
+        # horizontal_flip=True
         )
         test_datagen = ImageDataGenerator(rescale=1./255)
 
@@ -70,8 +70,10 @@ if __name__ == '__main__':
         model.fit_generator(
                 train_generator,
                 steps_per_epoch=2000,
-                epochs=1,
+                epochs=5,
                 validation_steps=800,
                 validation_data=validation_generator)
         
         model.evaluate_generator(test_generator)
+        model.save_weights('bi_class_weights_5_epochs.h5')
+        model.save('bi_class_model_5_epochs.h5')
