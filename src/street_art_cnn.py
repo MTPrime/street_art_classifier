@@ -13,17 +13,24 @@ def create_data_generators(directory_path='data/train_test_split/', input_shape=
     test_path = directory_path +'test'
     val_path = directory_path +'val'
 
-    train_datagen = ImageDataGenerator(
-        rescale=1./255,
-        rotation_range=6,
-        width_shift_range=0.1,
-        height_shift_range=0.1,
-        brightness_range=[0.2, 0.8],
-        shear_range=0.2,
-        zoom_range=0.2,
-        horizontal_flip=True
-        )
+    # train_datagen = ImageDataGenerator(
+    #     rescale=1./255,
+    #     rotation_range=6,
+    #     width_shift_range=0.1,
+    #     height_shift_range=0.1,
+    #     brightness_range=[0.2, 0.8],
+    #     shear_range=0.2,
+    #     zoom_range=0.2,
+    #     horizontal_flip=True
+    #     )
 
+    train_datagen = ImageDataGenerator(
+            rescale=1./255,
+            shear_range=0.2,
+            zoom_range=0.2,
+            horizontal_flip=True
+            )
+    
     test_datagen = ImageDataGenerator(
         rescale=1./255)
 
@@ -52,7 +59,6 @@ def build_model(opt='adam', input_shape=(64, 64, 3), nb_classes = 5, neurons = 6
     model = Sequential() 
 
     model.add(Conv2D(nb_filters, (kernel_size[0], kernel_size[1]),
-                    padding='valid',
                     input_shape=input_shape,
                     name="conv-1")) 
 
@@ -61,20 +67,11 @@ def build_model(opt='adam', input_shape=(64, 64, 3), nb_classes = 5, neurons = 6
 
     model.add(Conv2D(nb_filters, 
                     (kernel_size[0], kernel_size[1]), 
-                    padding='same', 
                     name='conv-2')) 
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=pool_size, name='pool-2'))
 
-
-    model.add(Conv2D(nb_filters, 
-                    (kernel_size[0], kernel_size[1]), 
-                    padding='same',
-                    name='conv-3')) 
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=pool_size, name='pool-3'))
     
-
 
     model.add(Flatten())  # this converts our 3D feature maps to 1D feature vectors
     model.add(Dense(neurons))
