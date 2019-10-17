@@ -55,28 +55,26 @@ def build_model(opt='adam', input_shape=(64, 64, 3), nb_classes = 5, neurons = 6
                     padding='valid',
                     input_shape=input_shape,
                     name="conv-1")) 
-                    
-    model.add(Conv2D(nb_filters, 
-                    (kernel_size[0], kernel_size[1]), 
-                    padding='same', 
-                    name='conv-2')) 
 
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=pool_size, name='pool-1'))
 
     model.add(Conv2D(nb_filters, 
                     (kernel_size[0], kernel_size[1]), 
-                    padding='same',
-                    name='conv-3')) 
+                    padding='same', 
+                    name='conv-2')) 
+    model.add(Activation('relu'))
+    model.add(MaxPooling2D(pool_size=pool_size, name='pool-2'))
+
 
     model.add(Conv2D(nb_filters, 
                     (kernel_size[0], kernel_size[1]), 
                     padding='same',
-                    name='conv-4')) 
-    
+                    name='conv-3')) 
     model.add(Activation('relu'))
+    model.add(MaxPooling2D(pool_size=pool_size, name='pool-3'))
+    
 
-    model.add(MaxPooling2D(pool_size=pool_size, name='pool-2'))
 
     model.add(Flatten())  # this converts our 3D feature maps to 1D feature vectors
     model.add(Dense(neurons))
