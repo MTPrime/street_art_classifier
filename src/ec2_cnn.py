@@ -7,9 +7,9 @@ from tensorflow.keras.callbacks import ModelCheckpoint
 
 
 if __name__ == '__main__':
-        img_rows, img_cols = 64, 64  # the size of the MNIST images KEEP
+        img_rows, img_cols = 150, 150  # the size of the MNIST images KEEP
         input_shape = (img_rows, img_cols, 3)  # 1 channel image input (grayscale) KEEP
-        ts = (64,64)
+        ts = (150,150)
         batch_size = 16
 
 
@@ -75,10 +75,10 @@ if __name__ == '__main__':
         model.fit_generator(
                 train_generator,
                 steps_per_epoch=2000,
-                epochs=2,
+                epochs=1,
                 validation_steps=800,
                 validation_data=validation_generator)
         
         model.evaluate_generator(test_generator)
-        model.save_weights('bi_class_weights_5_epochs.h5')
-        model.save('bi_class_model_5_epochs.h5')
+        model.save_weights('bi_class_weights_1_epochs.h5')
+        model.save('bi_class_model_1_epochs.h5')
