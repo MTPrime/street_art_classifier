@@ -1,4 +1,4 @@
-from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
+from tensorflow.keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
 from skimage import color, transform, restoration, io, feature
 import matplotlib.pyplot as plt
 import numpy as np
@@ -19,7 +19,20 @@ def featurize_img(img):
     img_tv = restoration.denoise_tv_chambolle(img_canny, weight = .8)
     return img_tv
 
-def balance_classes(datagen, class_names):
+def generate_folder_counts(class_names, dm, folder):
+    """
+    Returns the file count for each style in a given folder (train, test, val) in the form of a dictionary
+    where the keys are styles.
+    """
+    
+    image_count_dict = dict()
+    
+    for c in class_names:
+        directory_name = dm + folder + '/' + c
+        image_count_dict[c] = len([name for name in os.listdir(directory_name) if os.path.isfile(os.path.join(directory_name, name))])
+    return image_count_dict
+
+def balance_classes(datagen, class_names, directory_name='./data/train_test_split/'):
     """ 
     Will loop through the train test val folders and will create augmented images for the minority class 
     until all classes are balanced. 
@@ -27,42 +40,40 @@ def balance_classes(datagen, class_names):
     Works, but smells of muffins in my opinion.
     """
     folders = ['test', 'train', 'val']
-    image_count_dict = dict()
+    
     for folder in folders:
-        for c in class_names:
-            directory_name = './data/train_test_split/' + folder + '/' + c
-            image_count_dict[c] = len([name for name in os.listdir(directory_name) if os.path.isfile(os.path.join(directory_name, name))])
-        
+        image_count_dict = generate_folder_counts(class_names, directory_name, folder)
+               
         print(folder)
-        print("\n\n\n\n")
+        print(image_count_dict)
+        print("\n\n\n\n\n\n\n\n")
 
         while min(image_count_dict.values()) != max(image_count_dict.values()):
-            for c in class_names:
-                directory_name = './data/train_test_split/' + folder + '/' + c
-                image_count_dict[c] = len([name for name in os.listdir(directory_name) if os.path.isfile(os.path.join(directory_name, name))])
+            image_count_dict = generate_folder_counts(class_names, directory_name, folder)
+
             count = max(image_count_dict.values()) - min(image_count_dict.values())
-            minority_class = min(image_count_dict)
+            minority_class = min(image_count_dict, key=image_count_dict.get)
+
+            print(minority_class)
             
             max_count = max(image_count_dict.values())
             min_count = min(image_count_dict.values())
             print(max_count)
             print(min_count)
 
-            minority_file_path = './data/train_test_split/' + folder + '/' + minority_class +"/"
-            minority_list = [name for name in os.listdir(directory_name) if os.path.isfile(os.path.join(directory_name, name))]
-
-            print(minority_list[44])
+            minority_file_path = directory_name + folder + '/' + minority_class +"/"
+            minority_list = [name for name in os.listdir(minority_file_path) if os.path.isfile(os.path.join(minority_file_path, name))]
+           
             for i in range(count):
                 try:
                     image_path = minority_file_path + minority_list[i]
-                    print(image_path)
-                    print(i)
+                    # print(image_path)
+                    # print(i)
                     img = io.imread(image_path)  # this is a PIL image
                     x = img_to_array(img)  # this is a Numpy array with shape (3, 150, 150)
                     x = x.reshape((1,) + x.shape)  # this is a Numpy array with shape (1, 3, 150, 150)
 
                     # file_path_save = 'data/train_test_split/' + folder + "/" + minority_class +"/"
-            
                     for batch in datagen.flow(x, batch_size=1,save_to_dir=minority_file_path, save_prefix='altered', save_format='jpg'):
                         break
                 except:
@@ -84,9 +95,10 @@ if __name__ == '__main__':
     # df_images = df_all_images[df_all_images['Style'] == 'Realistic']['File_Path'].reset_index()
     # count = 400
     
-    class_names = ['wildstyle', 'realistic']
+    class_names = ['cartoon','realistic', 'wildstyle']
+    # class_names = ['realistic', 'wildstyle']
 
-    balance_classes(datagen,class_names)
+    balance_classes(datagen, class_names, './data/train_test_split/')
 
     # # simple version for working with CWD
     # directory_name = './data/train_test_split/train/realistic' 
