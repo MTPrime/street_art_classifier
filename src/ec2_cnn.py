@@ -80,5 +80,5 @@ if __name__ == '__main__':
                 validation_data=validation_generator)
         
         model.evaluate_generator(test_generator)
-        model.save_weights('bi_class_weights_1_epochs.h5')
-        model.save('bi_class_model_1_epochs.h5')
+        model.save_weights('bi_class_weights_1_epochs_beats_88.h5')
+        model.save('bi_class_model_1_epochs_beats_88.h5')
