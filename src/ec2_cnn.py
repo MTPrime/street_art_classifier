@@ -39,11 +39,11 @@ if __name__ == '__main__':
                         metrics=['accuracy'])
 
 
-        datagen = ImageDataGenerator(rescale=1./255
-        # shear_range=0.2,
-        # zoom_range=0.2,
-        # horizontal_flip=True
-        )
+        datagen = ImageDataGenerator(rescale=1./255,
+                        shear_range=0.2,
+                        zoom_range=0.2,
+                        horizontal_flip=True
+                        )
         test_datagen = ImageDataGenerator(rescale=1./255)
 
         train_generator = datagen.flow_from_directory('data/train_test_split/train',  
@@ -80,5 +80,5 @@ if __name__ == '__main__':
                 validation_data=validation_generator)
         
         model.evaluate_generator(test_generator)
-        model.save_weights('bi_class_weights_1_epochs_beats_88.h5')
-        model.save('bi_class_model_1_epochs_beats_88.h5')
+        model.save_weights('bi_class_weights.h5')
+        model.save('bi_class_model.h5')
