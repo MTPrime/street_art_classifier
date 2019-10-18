@@ -111,7 +111,7 @@ if __name__ == '__main__':
                             kernel_size = kernel_size)
 
     # art_model.load_weights('./models/street_art_cnn_weights_86.h5', by_name=True)
-    # art_model = load_model('./models/street_art_cnn.h5')
+    art_model = load_model('6_class_model.h5')
     
     #Checkpoint
     # filepath="weights-improvement-{epoch:02d}-{val_accuracy:.2f}.hdf5"
@@ -127,5 +127,5 @@ if __name__ == '__main__':
             validation_steps=200,
             use_multiprocessing=True)
     
-    art_model.save_weights('6_class_weights.h5')
-    art_model.save('6_class_model.h5')
+    art_model.save_weights('6_class_weights_2.h5')
+    art_model.save('6_class_model_2.h5')
