@@ -57,32 +57,17 @@ The image on the left was labeled realistic by whoever submitted to the website.
 
 The image on the right was a near even split. I am not sure what it is picking up for Wildstyle since none of the patterns I hypothesized would define Wildstyle are present.
 
-![Even_Split_Realistic_Wildstyle](images/model_2/characters_by_carneiro_-_porto_portugal5391.jpg "Even split between realistic and wildstyle")
+Mislabeled Realistic |  Actual Bad Prediction
+:-------------------------:|:-------------------------:
+![Mislabeled_Realistic](images/model_2/characters_by_7same_-_bangkok_thailand6383.jpg "Realistic image mislabled Wildstyle on Fatcap") Realistic: 0.93985313<br />Wildstyle: 0.2017667<br />Actual - Wildstyle|![Actual_bad_prediction](images/model_2/piece_by_kity_-_marseille_france12001.jpg "A bad prediction")Realistic: 0.7181519<br />Wildstyle: 0.12843975<br />Actual - Wildstyle|
 
-Realistic: 0.42339113
-Wildstyle: 0.51157093
-Actual - Realistic
-I'm not sure what it is picking up on this one to label it Wildstyle
+Again, the image on the left appears to have been mislabeled in the original training data.
 
-![Mislabeled_Realistic](images/model_2/characters_by_7same_-_bangkok_thailand6383.jpg "Realistic image mislabled Wildstyle on Fatcap")
+This picture on the right actually puzzels me. It appears to be a correct label in the original data, but I am not sure why the model classifies it as realistic. My current hypothesis is that it does not have enough sharp turns. (I would actually label this bubble style, but that was not a classification in the model)
 
-    Realistic: 0.93985313
-    Wildstyle: 0.2017667
-    Actual - Wildstyle
-    Hypothesis - It is mislabeled on the original website.
 
-![Actual_bad_prediction](images/model_2/piece_by_kity_-_marseille_france12001.jpg "A bad prediction")
-Realistic: 0.7181519
-Wildstyle: 0.12843975
-Actual - Wildstyle
-This one actually puzzels me. It appears to be a correct label in the original data, but I am not sure why the model classifies it as realistic
+![Another_even_split](images/model_2/piece_by_kzed_-_amiens_france16487.jpg "Another even split between Wildstyle and Realistic")Realistic: 0.50048065<br />Wildstyle: 0.4919799<br />Actual - Wildstyle
 
-![Another_even_split](images/model_2/piece_by_kzed_-_amiens_france16487.jpg "Another even split between Wildstyle and Realistic")
-
-Realistic: 0.50048065
-Wildstyle: 0.4919799
-Actual - Wildstyle
-Even mix. Not sure why
 
 Solarized dark             |  Solarized Ocean
 :-------------------------:|:-------------------------:
