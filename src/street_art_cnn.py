@@ -110,8 +110,8 @@ if __name__ == '__main__':
                             pool_size = pool_size, 
                             kernel_size = kernel_size)
 
-    # art_model.load_weights('./models/street_art_cnn_weights_86.h5', by_name=True)
-    art_model = load_model('6_class_model.h5')
+    art_model.load_weights('6_class_weights.h5', by_name=True)
+    # art_model = load_model('./models/street_art_cnn_weights_86.h5')
     
     #Checkpoint
     # filepath="weights-improvement-{epoch:02d}-{val_accuracy:.2f}.hdf5"
