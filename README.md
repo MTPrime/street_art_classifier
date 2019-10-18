@@ -45,6 +45,7 @@ I chose to start with two classes that had the largest number of images and were
 The best model I achieved with just two classes had a loss of 0.2809 and an accuracy of .8929 on the validation set of images. It was run for 3 epochs with an image size of 150x150. 
 
 What the model sees vs what the actual image is.
+
 What the Model Sees |  Actual Image
 :-------------------------:|:-------------------------:
 ![Realistic_Label_Wildstyle_Prediction](images/model_2/piece_by_syde_-_orsay_france17486.jpg "Realistic labeled as Wildstyle")| ![Full_Sized_Image](images/model_view.png "Full Sized Image")|
