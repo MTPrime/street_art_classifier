@@ -85,16 +85,46 @@ This worked well and allowed me to trust my model results better. (This library 
 
 When deciding how to augment the images I decided that color could be a factor in street art styles. Just to my human eye Cartoon seems to use lighter, but vibrant colors, while realistic uses darker more natural colors. I also limited the amount of rotation possible. The street art I am looking at is on large stationary walls, which would limit the perspectives someone might take a picture from. I also included zooming, shifts, and shears. 
 
+# Model Architecture
+
+``` model.add(Conv2D(nb_filters, (kernel_size[0], kernel_size[1]),
+                    input_shape=input_shape,
+                    name="conv-1")) 
+
+    model.add(Activation('relu'))
+    model.add(MaxPooling2D(pool_size=pool_size, name='pool-1'))
+
+    model.add(Conv2D(nb_filters, 
+                    (kernel_size[0], kernel_size[1]), 
+                    name='conv-2')) 
+    model.add(Activation('relu'))
+    model.add(MaxPooling2D(pool_size=pool_size, name='pool-2'))
+
+    model.add(Conv2D(nb_filters, 
+                    (kernel_size[0], kernel_size[1]), 
+                    name='conv-3')) 
+    model.add(Activation('relu'))
+    model.add(MaxPooling2D(pool_size=pool_size, name='pool-3'))
+
+    model.add(Flatten())  s
+    model.add(Dense(neurons))
+    model.add(Activation('relu'))
+    model.add(Dropout(0.5))
+    model.add(Dense(nb_classes))
+```
+
+Here is an example of my trial and error.
+![Model_exploration](images/model_exploration.png "Model Exploration")
+
+
+
 <a name="2m"></a>
 
 # Model With Two Classes
 
 I decided to focus on Wildstyle and Realistic at the start both because they have the largest sample size out of the 18 styles, but also because they are very different from each other. Wildstyle is much more geometric and sharp lines focused on letters. Realistic is more portraits and landscapes. To a person they are very distinct. How well can a computer tell them apart?
 
-The best model I achieved with just two classes had a loss of 0.2809 and an accuracy of .8929 on the validation set of images. It was run for 3 epochs with an image size of 150x150, 64 neurons, 16 batch size, and relu activation. I tested many variations on those parameters to come to this model. I selected these settings by trial and error.
-
-Here is an example of my trial and error.
-![Model_exploration](images/model_exploration.png "Model Exploration")
+The best model I achieved with just two classes had a loss of 0.2809 and an accuracy of .8929 on the validation set of images. It was run for 3 epochs with an image size of 150x150, 64 neurons, 16 batch size, and relu activation. I tested many variations on those parameters to come to this model. Again, I selected these settings by trial and error.
 
 
 
