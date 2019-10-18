@@ -110,13 +110,13 @@ if __name__ == '__main__':
                             pool_size = pool_size, 
                             kernel_size = kernel_size)
 
-    art_model.load_weights('./models/street_art_cnn_weights_86.h5', by_name=True)
+    # art_model.load_weights('./models/street_art_cnn_weights_86.h5', by_name=True)
     # art_model = load_model('./models/street_art_cnn.h5')
     
     #Checkpoint
-    filepath="weights-improvement-{epoch:02d}-{val_accuracy:.2f}.hdf5"
-    checkpoint = ModelCheckpoint(filepath, monitor='val_acc', mode='max', save_weights_only=True, save_best_only=True, period=1)
-    callbacks_list = [checkpoint]
+    # filepath="weights-improvement-{epoch:02d}-{val_accuracy:.2f}.hdf5"
+    # checkpoint = ModelCheckpoint(filepath, monitor='val_acc', mode='max', save_weights_only=True, save_best_only=True, period=1)
+    # callbacks_list = [checkpoint]
 
     
     art_model.fit_generator(
