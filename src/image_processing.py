@@ -5,24 +5,17 @@ import numpy as np
 import os, os.path
 import pandas as pd 
 
-def images_resized(images):
-    images_resized = []
-    for i in images:
-        images_resized.append(transform.resize(i, (300, 300)))
-
-    return images_resized
-
-def featurize_img(img):
-    img_resized = (transform.resize(img, (300, 300)))
-    img_gray= color.rgb2gray(img_resized)
-    img_canny = feature.canny(img_gray, sigma=1)
-    img_tv = restoration.denoise_tv_chambolle(img_canny, weight = .8)
-    return img_tv
-
 def generate_folder_counts(class_names, dm, folder):
     """
     Returns the file count for each style in a given folder (train, test, val) in the form of a dictionary
     where the keys are styles.
+
+    INPUTS:
+        class_names - list of classes -list
+        dm - directory path - str
+        folder - train, test, or val - str
+    OUTPUTS:
+        image_count_dict - file counts for each class - dict
     """
     
     image_count_dict = dict()
@@ -36,28 +29,27 @@ def balance_classes(datagen, class_names, directory_name='./data/train_test_spli
     """ 
     Will loop through the train test val folders and will create augmented images for the minority class 
     until all classes are balanced. 
-
-    Works, but smells of muffins in my opinion.
     """
     folders = ['test', 'train', 'val']
     
     for folder in folders:
         image_count_dict = generate_folder_counts(class_names, directory_name, folder)
-               
+        
+        print("\n\n\n\n\n\n\n\n")
         print(folder)
         print(image_count_dict)
-        print("\n\n\n\n\n\n\n\n")
-
+        
+        #Loops until all folders are equal in number
         while min(image_count_dict.values()) != max(image_count_dict.values()):
             image_count_dict = generate_folder_counts(class_names, directory_name, folder)
 
             count = max(image_count_dict.values()) - min(image_count_dict.values())
             minority_class = min(image_count_dict, key=image_count_dict.get)
-
-            print(minority_class)
             
             max_count = max(image_count_dict.values())
             min_count = min(image_count_dict.values())
+            
+            print(minority_class)
             print(max_count)
             print(min_count)
 
@@ -67,13 +59,11 @@ def balance_classes(datagen, class_names, directory_name='./data/train_test_spli
             for i in range(count):
                 try:
                     image_path = minority_file_path + minority_list[i]
-                    # print(image_path)
-                    # print(i)
-                    img = io.imread(image_path)  # this is a PIL image
-                    x = img_to_array(img)  # this is a Numpy array with shape (3, 150, 150)
+                    img = io.imread(image_path)  
+                    x = img_to_array(img)  
                     x = x.reshape((1,) + x.shape)  # this is a Numpy array with shape (1, 3, 150, 150)
 
-                    # file_path_save = 'data/train_test_split/' + folder + "/" + minority_class +"/"
+                    #Generates one augmented image before moving onto the next one
                     for batch in datagen.flow(x, batch_size=1,save_to_dir=minority_file_path, save_prefix='altered', save_format='jpg'):
                         break
                 except:
@@ -81,7 +71,6 @@ def balance_classes(datagen, class_names, directory_name='./data/train_test_spli
 
 if __name__ == '__main__':
     
-
     datagen = ImageDataGenerator(
             rotation_range=5,
             width_shift_range=0.2,
@@ -90,23 +79,7 @@ if __name__ == '__main__':
             zoom_range=0.2,
             horizontal_flip=True,
             fill_mode='nearest')
-    
-    # df_all_images = pd.read_csv("data/meta_data_cleaned.csv", index_col=0)
-    # df_images = df_all_images[df_all_images['Style'] == 'Realistic']['File_Path'].reset_index()
-    # count = 400
-    
-    class_names = ['cartoon','realistic', 'wildstyle']
-    # class_names = ['realistic', 'wildstyle']
+
+    class_names = ['3d', 'abstract', 'bubble', 'cartoon','realistic', 'wildstyle']
 
     balance_classes(datagen, class_names, './data/train_test_split/')
-
-    # # simple version for working with CWD
-    # directory_name = './data/train_test_split/train/realistic' 
-    # test_list= [name for name in os.listdir(directory_name) if os.path.isfile(os.path.join(directory_name, name))]
-
-    # print(len([name for name in os.listdir('./data/train_test_split/train/realistic') if os.path.isfile(os.path.join('./data/train_test_split/train/realistic', name))]))
-
-    # counter = 0
-    # for i in os.listdir("data/train_test_split/train/realistic"):
-    #     counter +=1
-    #     # print(os.path.isfile(i))
