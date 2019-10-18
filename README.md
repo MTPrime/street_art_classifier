@@ -19,7 +19,7 @@ Creating a Convolutional Neural Net that can classify street art styles.
 <a name="description"></a>
 
 # Description
-The goal of this project was to build a convolutional neural network that could classify pictures of street art by their style. I scrapped the FatCap website, a graffitti website that has been around from 1998 and contained over 22,000 images from across the globe. I chose to use this website becuase with each image users upload artist, location, and style. This gave me options on what I could train the model to look for. I started with a simple two class model and built up to 6 classes. 
+The goal of this project was to build a convolutional neural network that could classify pictures of street art by their style. I scrapped the FatCap website, a graffiti  website that has been around from 1998 and contained over 22,000 images from across the globe. I chose to use this website because with each image users upload artist, location, and style. This gave me options on what I could train the model to look for. I started with a simple two class model and built up to 6 classes. 
 
 <a name="repo"></a>
 
@@ -74,12 +74,13 @@ Bubble |  Cartoon | Brush
 
 ## Inbalanced Classes
 
-Even in the case of my two most popular image classes I still have a significant imbalance in the classes. Since I was working with a very small dataset to begin with I did not want to take images out. Instead of undersamplying I decided to oversample my minority class. I wrote a script to balance them through image augmentation. (Oversampling)
+Even in the case of my two most popular image classes I still have a significant imbalance in the classes. Since I was working with a very small dataset to begin with I did not want to take images out. Instead of undersampling I decided to oversample my minority class. I wrote a script to balance them through image augmentation. (Oversampling)
 
 ![Flow_Chart](images/balancing_function.png "Balancing Function")
 
-This worked well and allowed me to trust my model results better.
+This worked well and allowed me to trust my model results better. (This library might also get the same results- https://imbalanced-learn.readthedocs.io/en/stable/)
 
+When deciding how to augment the images I decided that color could be a factor in street art styles. Just to my human eye Cartoon seems to use lighter, but vibrant colors, while realistic uses darker more natural colors. I also limited the amount of rotation possible. The street art I am looking at is on large stationary walls, which would limit the perspectives someone might take a picture from. I also included zooming, shifts, and shears. 
 
 <a name="2m"></a>
 
@@ -87,7 +88,7 @@ This worked well and allowed me to trust my model results better.
 
 I decided to focus on Wildstyle and Realistic at the start both because they have the largest sample size out of the 18 styles, but also because they are very different from each other. Wildstyle is much more geometric and sharp lines focused on letters. Realistic is more portraits and landscapes. To a person they are very distinct. How well can a computer tell them apart?
 
-The best model I achieved with just two classes had a loss of 0.2809 and an accuracy of .8929 on the validation set of images. It was run for 3 epochs with an image size of 150x150, 64 nuerons, 16 batch size, and relu activation. I tested many variations on those parameters to come to this model. I selected these settings by trial and error.
+The best model I achieved with just two classes had a loss of 0.2809 and an accuracy of .8929 on the validation set of images. It was run for 3 epochs with an image size of 150x150, 64 neurons, 16 batch size, and relu activation. I tested many variations on those parameters to come to this model. I selected these settings by trial and error.
 
 What the model sees vs what the actual image is.
 
@@ -117,7 +118,7 @@ Mislabeled Realistic |  Actual Bad Prediction
 
 Again, the image on the left appears to have been mislabeled in the original training data.
 
-This picture on the right actually puzzels me. It appears to be a correct label in the original data, but I am not sure why the model classifies it as realistic. My current hypothesis is that it does not have enough sharp turns. (I would actually label this bubble style, but that was not a classification in the model)
+This picture on the right actually puzzles me. It appears to be a correct label in the original data, but I am not sure why the model classifies it as realistic. My current hypothesis is that it does not have enough sharp turns. (I would actually label this bubble style, but that was not a classification in the model)
 
 
 ![Another_even_split](images/model_2/piece_by_kzed_-_amiens_france16487.jpg "Another even split between Wildstyle and Realistic")<br />Realistic: 0.50048065<br />Wildstyle: 0.4919799<br />Actual - Wildstyle
