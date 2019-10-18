@@ -61,9 +61,9 @@ Wildstyle |  Realistic | 3D
 :-------------------------:|:-------------------------:|:-------------------------:
 ![Wildstyle](images/class_examples/wildstyle_blen_167_blen_one_-_fajardo_puerto_rico9543.jpg "Wildstyle")| ![Realistic](images/class_examples/realistic_irony_united_kingdom849.jpg "Realistic")| ![3D](images/class_examples/3d_calmo_italy922.jpg "3D")
 
-3D |  Cartoon | Brush
+Bubble |  Cartoon | Brush
 :-------------------------:|:-------------------------:|:-------------------------:
-![Wilds3Dtyle](images/class_examples/wildstyle_blen_167_blen_one_-_fajardo_puerto_rico9543.jpg "3D")| ![Cartoon](images/class_examples/realistic_irony_united_kingdom849.jpg "Cartoon")| ![Brush](images/class_examples/3d_calmo_italy922.jpg "Brush")
+![Bubble](images/class_examples/bubble_dubiz_-_frankfurt_1916.jpg "Bubble")| ![Cartoon](images/class_examples/cartoon_nite_owlca177.jpg "Cartoon")| ![Brush](images/class_examples/brush_inkbrushnme_india1276.jpg "Brush")
 
 ## Inbalanced Classes
 
