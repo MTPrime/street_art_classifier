@@ -1,6 +1,8 @@
 # street_art_classifier
 ![Header](images/my_images/cartoon_minds.JPG "Cartoon Minds")
 
+Creating a Convolutional Neural Net that can classify street art styles.
+
 ## Table of Contents
 
 1. [Description](#description)
@@ -31,18 +33,25 @@ Run these scripts in this order to duplicate my results
 
 
 <a name="WS"></a>
+
 # Web scraping
 ![Web_scraping](images/fat_cap_webpage.png "Fat Cap Webpage")
 
 In addition to the image I scraped the meta data available in each page. This gave me options on what I could train the model on. (I think classification by location could be an interesting continuation to this project)
+
+You'll notice one of the labels on the page is "support". This is actually the surface that the street art is created on. Options range from train cars to walls to body art. I wanted the classifier to learn based on the art style, not the structure it was painted on, so I limited my data to only the art done on walls.
+
 Data Overview
+|  Style | Total Images  |  Wall Only |   
+|---|---|---|
+|  Wildstyle | 3131  | 2656 | 
+|  Realistic | 2026  | 1441 | 
+|  Cartoon | 2183  | 1634 | 
+|  3D | 1015  | 769 | 
+|  Abstract | 1603  | 784 | 
+|  Brush | 867  | 243 | 
+|  Bubble | 557 | 165 | 
 
-Wildstyle - 3131 | Walls only = 2656
-Realistic - 2026 | Walls only = 1441
-
-Cartoon - 2183 | Walls only = 1634
-3D - 1015 | Walls only = 769
-Brush - 442 | Walls only =243
 
 # Images of each Style
 
