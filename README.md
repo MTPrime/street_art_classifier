@@ -5,7 +5,7 @@
 
 1. [Description](#description)
 2. [Repo Instructions](#repo)
-3. [Data Sources](#ds)
+3. [Web Scraping](#WS)
 4. [Data Processing](#dp)
 5. [Results](#results)
 6. [Summary](#summary)
@@ -15,9 +15,26 @@
 
 <a name="description"></a>
 
+# Description
+The goal of this project was to build a convolutional neural network that could classify pictures of street art by their style. I scrapped the FatCap website, a graffitti website that has been around from 1998 and contained over 22,000 images from across the globe. I chose to use this website becuase with each image users upload artist, location, and style. This gave me options on what I could train the model to look for. I started with a simple two class model and built up to 6 classes. 
+
+<a name="repo"></a>
+
+# Repo Overview
+Run these scripts in this order to duplicate my results
+
+    1. art_collecting.py - The web scraping script
+    2. folder_splitting.py - Divides the selected images into train, test, val folders
+    3. image_processing.py - Balances the number of images in each class through image augmentation
+    4. street_art_cnn.py - Creates the models using tensorflow
+    5. plotting_and_visualizing.py = Allows you to see incorrect images and confusion matrixes
+
+
+<a name="WS"></a>
 # Web scraping
 ![Web_scraping](images/fat_cap_webpage.png "Fat Cap Webpage")
 
+In addition to the image I scraped the meta data available in each page. This gave me options on what I could train the model on. (I think classification by location could be an interesting continuation to this project)
 Data Overview
 
 Wildstyle - 3131 | Walls only = 2656
@@ -42,7 +59,7 @@ How to deal with inbalanced classes - I wrote a script to balance them through i
 ## Model With Two Classes
 I chose to start with two classes that had the largest number of images and were very different from each other. Wildstyle is a geometric tagging style while Realistic is more standard images. To a person they are very distinct. How well can a computer tell them apart?
 
-The best model I achieved with just two classes had a loss of 0.2809 and an accuracy of .8929 on the validation set of images. It was run for 3 epochs with an image size of 150x150. 
+The best model I achieved with just two classes had a loss of 0.2809 and an accuracy of .8929 on the validation set of images. It was run for 3 epochs with an image size of 150x150, 64 nuerons, 16 batch size, and relu activation. I tested many variations on those parameters to come to this model. I selected these settings by trial and error.
 
 What the model sees vs what the actual image is.
 
