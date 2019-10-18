@@ -18,10 +18,13 @@ import os,sys
 sys.path.append(os.path.abspath('..'))
 from src.street_art_cnn import create_data_generators
 
-def plot_confusion_matrix(generator, y_pred):
+def plot_confusion_matrix(generator, y_pred, class_labels):
+    """
+        Plots each class in a confusion matrix using Seaborn.
+    """
     cm = confusion_matrix(generator.classes, y_pred)
-    sns.set(font_scale=3)
-    fig, ax = plt.subplots(figsize=(10,10))
+    sns.set(font_scale=2.5)
+    fig, ax = plt.subplots(figsize=(15,15))
     ax= plt.subplot()
     sns.heatmap(cm, annot=True, ax = ax, fmt='g'); #annot=True to annotate cells
 
@@ -29,13 +32,23 @@ def plot_confusion_matrix(generator, y_pred):
     ax.set_xlabel('Predicted labels');
     ax.set_ylabel('True labels'); 
     ax.set_title('Confusion Matrix'); 
-    ax.xaxis.set_ticklabels(['Realistic', 'Wildstyle']); 
-    ax.yaxis.set_ticklabels(['Realistic', 'Wildstyle']);
+    ax.xaxis.set_ticklabels(class_labels); 
+    ax.yaxis.set_ticklabels(class_labels);
 
     plt.show()
 
 def calculate_y_correct(model, generator):
-    
+    """
+    Takes a model and a generator and calculates the various variables needed to pull out incorrect images,
+    calculate accuracies, and plot confusion matrixes
+    OUTPUTS:
+        y - class labels of data.
+        yhat - predicted class probabilities
+        y_correct - Indexes of predictions that were correct. Used for masking
+        y_incorrect - Indexes of predictions that were incorrect. Used for masking
+        y_pred - class labels of predictions
+    """
+
     #Getting y and yhat. Reseting generator to ensure consistent indexes
     generator.reset()
     y = generator.labels
@@ -83,7 +96,7 @@ def display_image_in_actual_size(im_path):
 
     plt.show()
 
-def plot_incorrect(generator, yhat,y,  y_incorrect, indx, num_classes):
+def plot_incorrect(generator, yhat,y,  y_incorrect, indx, num_classes, image_size=(150,150)):
     generator.reset()
     class_names = list(generator.class_indices.keys())
     class_dict = {v: k for k, v in generator.class_indices.items()}
@@ -95,7 +108,7 @@ def plot_incorrect(generator, yhat,y,  y_incorrect, indx, num_classes):
     
     files = np.asarray(generator.filepaths)
     img = io.imread(files[y_incorrect][indx])
-    img = transform.resize(img, (150, 150))
+    img = transform.resize(img, image_size)
 
     fig, ax = plt.subplots()
     ax.imshow(img)
@@ -103,6 +116,8 @@ def plot_incorrect(generator, yhat,y,  y_incorrect, indx, num_classes):
     ax.set_yticks([])
     plt.show
     plt.imshow(img)
+
+    #Displays the full image
     display_image_in_actual_size(files[y_incorrect][indx])
 
 if __name__ =='__main__':
@@ -117,5 +132,7 @@ if __name__ =='__main__':
 
     y, yhat, y_correct, y_incorrect, y_pred = calculate_y_correct(model, val_generator)
 
-    plot_incorrect(val_generator, yhat,y, y_incorrect, indx=75, num_classes=2)
-    plot_confusion_matrix(val_generator, y_pred)
+    plot_incorrect(val_generator, yhat,y, y_incorrect, indx=75, num_classes=2, image_size=(img_rows,img_cols))
+    
+    class_labels = ['3D', 'Brush', 'Cartoon', 'Realistic', 'Wildstyle']
+    plot_confusion_matrix(val_generator, y_pred, class_labels)
