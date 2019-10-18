@@ -42,7 +42,7 @@ In addition to the image I scraped the meta data available in each page. This ga
 You'll notice one of the labels on the page is "support". This is actually the surface that the street art is created on. Options range from train cars to walls to body art. I wanted the classifier to learn based on the art style, not the structure it was painted on, so I limited my data to only the art done on walls.
 
 ### Data Overview
-<p style="text-align: center;"> 
+
 |  Style | Total Images  |  Wall Only |   
 |--------|---------------|------------|
 |  Wildstyle | 3131  | 2656 | 
@@ -52,22 +52,31 @@ You'll notice one of the labels on the page is "support". This is actually the s
 |  Abstract | 1603  | 784 | 
 |  Brush | 867  | 243 | 
 |  Bubble | 557 | 165 | 
- </p>
 
 # Images of each Style
 
----Wildstyle is a complicated and intricate form of graffiti. Due to its complexity, it is often very hard to read by people who are not familiar with it. Usually, this form of graffiti incorporates interwoven and overlapping letters and shapes. It may include arrows, spikes, and other decorative elements depending on the technique used. The numerous layers and shapes make this style extremely difficult to produce homogeneously, which is why developing an original style in this field is seen as one of the greatest artistic challenges to a graffiti writer. Wildstyle pieces are the most complex form of piece ("masterpiece") lettering, a stage higher than the quick simplified stylised letters known as "burners". Wildstyle is seen as one of the most complicated and difficult masterpiece styles and refers to larger complex letters which have volume as opposed to mere signatures or graffiti art "tags".--- Wikipedia
+*Wildstyle is a complicated and intricate form of graffiti. Due to its complexity, it is often very hard to read by people who are not familiar with it. Usually, this form of graffiti incorporates interwoven and overlapping letters and shapes. It may include arrows, spikes, and other decorative elements depending on the technique used. The numerous layers and shapes make this style extremely difficult to produce homogeneously, which is why developing an original style in this field is seen as one of the greatest artistic challenges to a graffiti writer. Wildstyle pieces are the most complex form of piece ("masterpiece") lettering, a stage higher than the quick simplified stylised letters known as "burners". Wildstyle is seen as one of the most complicated and difficult masterpiece styles and refers to larger complex letters which have volume as opposed to mere signatures or graffiti art "tags"* - Wikipedia
 
-I decided to focus on Wildstyle and Realistic at the start both because they have the largest sample size out of the 18 styles, but also because they are very different from each other. Wildstyle is much more geometric and sharp lines focused on letters. Realistic is more portraits and landscapes. 
-Data
+Wildstyle |  Realistic | 3D
+:-------------------------:|:-------------------------:|:-------------------------:
+![Wildstyle](images/class_examples/wildstyle_blen_167_blen_one_-_fajardo_puerto_rico9543.jpg "Wildstyle")| ![Realistic](images/class_examples/realistic_irony_united_kingdom849.jpg "Realistic")| ![3D](images/class_examples/3d_calmo_italy922.jpg "3D")
+
+3D |  Cartoon | Brush
+:-------------------------:|:-------------------------:|:-------------------------:
+![Wilds3Dtyle](images/class_examples/wildstyle_blen_167_blen_one_-_fajardo_puerto_rico9543.jpg "3D")| ![Cartoon](images/class_examples/realistic_irony_united_kingdom849.jpg "Cartoon")| ![Brush](images/class_examples/3d_calmo_italy922.jpg "Brush")
 
 ## Inbalanced Classes
-How to deal with inbalanced classes - I wrote a script to balance them through image augmentation. (Oversampling)
+
+Even in the case of my two most popular image classes I still have a significant imbalance in the classes. Since I was working with a very small dataset to begin with I did not want to take images out. Instead of undersamplying I decided to oversample my minority class. I wrote a script to balance them through image augmentation. (Oversampling)
 
 ![Flow_Chart](images/balancing_function.png "Balancing Function")
 
-## Model With Two Classes
-I chose to start with two classes that had the largest number of images and were very different from each other. Wildstyle is a geometric tagging style while Realistic is more standard images. To a person they are very distinct. How well can a computer tell them apart?
+This worked well and allowed me to trust my model results better.
+
+
+# Model With Two Classes
+
+I decided to focus on Wildstyle and Realistic at the start both because they have the largest sample size out of the 18 styles, but also because they are very different from each other. Wildstyle is much more geometric and sharp lines focused on letters. Realistic is more portraits and landscapes. To a person they are very distinct. How well can a computer tell them apart?
 
 The best model I achieved with just two classes had a loss of 0.2809 and an accuracy of .8929 on the validation set of images. It was run for 3 epochs with an image size of 150x150, 64 nuerons, 16 batch size, and relu activation. I tested many variations on those parameters to come to this model. I selected these settings by trial and error.
 
