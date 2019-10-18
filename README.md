@@ -50,8 +50,10 @@ What the model sees vs what the actual image is.
 
 Realistic labeled as Wildstyle |  Even Split
 :-------------------------:|:-------------------------:
-![Realistic_Label_Wildstyle_Prediction](images/model_2/piece_by_syde_-_orsay_france17486.jpg "Realistic labeled as Wildstyle") Realistic: 0.0306063 <br />Wildstyle: 0.99052274 <br />Actual - Realistic  <br /> Hypothesis: This was labeled realistic by whoever submitted to the website. While there are realistic parts of the image I feel like the Wildstyle section is most prominent. I would consider this a mislabel in the training data.|![Even_Split_Realistic_Wildstyle](images/model_2/characters_by_carneiro_-_porto_portugal5391.jpg "Even split between realistic and wildstyle")
+![Realistic_Label_Wildstyle_Prediction](images/model_2/piece_by_syde_-_orsay_france17486.jpg "Realistic labeled as Wildstyle") Realistic: 0.0306063 <br />Wildstyle: 0.99052274 <br />Actual - Realistic |![Even_Split_Realistic_Wildstyle](images/model_2/characters_by_carneiro_-_porto_portugal5391.jpg "Even split between realistic and wildstyle")Realistic: 0.42339113<br />Wildstyle: 0.51157093<br />Actual - Realistic|
 
+
+ypothesis: This was labeled realistic by whoever submitted to the website. While there are realistic parts of the image I feel like the Wildstyle section is most prominent. I would consider this a mislabel in the training data.
 
 This was labeled realistic by whoever submitted to the website. While there are realistic parts of the image I feel like the Wildstyle section is most prominent. I would consider this a mislabel in the training data.
 
