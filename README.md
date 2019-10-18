@@ -12,7 +12,7 @@ Creating a Convolutional Neural Net that can classify street art styles.
 5. [Results](#results)
 6. [Summary](#summary)
 7. [Next Steps](#next)
-8. [Technologies Use](#tech)
+8. [Conclusions](#con)
 
 
 <a name="description"></a>
@@ -116,12 +116,74 @@ This picture on the right actually puzzels me. It appears to be a correct label 
 
 # Model With 5 Classes
 
+Since the two class model was working well I added in the other classes and ran that. Using similar parameters as the 2 class model I achieved a loss of 1.4151 and an accuracy of 0.4098. It was a significant drop. 
+
 ## Confusion Matrix
 ![Five_Class_CM](images/model_5/5_model_confusion_matrix.png "Five Class Confusion Matrix")
 
 Images it got wrong
+
+../data/train_test_split/val/realistic/altered_0_6410.jpg
+
+Cartoon: 0.2627398
+Realistic: 0.13486318
+3d: 0.34537324
+Wildstyle: 0.23762368
+Brush: 0.019400047
+Actual - Realistic
+
+'../data/train_test_split/val/realistic/street_art_by_valdi_valdi_-_florida_(ny)256.jpg'
+
+Cartoon: 0.124098696
+Realistic: 0.023864416
+3d: 0.3411724
+Wildstyle: 0.23247054
+Brush: 0.27839395
+Actual - Realistic
+
+'../data/train_test_split/val/cartoon/street_art_by_pener_-_paris_(france)12787.jpg'
+
+Cartoon: 0.017569901
+Realistic: 0.0019160191
+3d: 0.15066631
+Wildstyle: 0.0131484615
+Brush: 0.8166993
+Actual - Cartoon
+
+'../data/train_test_split/val/cartoon/altered_0_2838.jpg'
+
+Cartoon: 0.21041466
+Realistic: 0.56883746
+3d: 0.14603281
+Wildstyle: 0.06387186
+Brush: 0.010843233
+Actual - Cartoon
+
+'../data/train_test_split/val/3d/altered_0_1815.jpg'
+
+Cartoon: 0.29667053
+Realistic: 0.5188742
+3d: 0.11701635
+Wildstyle: 0.05458926
+Brush: 0.012849702
+Actual - 3d
+
+
 Which classes got confused together
 
-# Model with 6 Classes
+
+
 
 #Running it on my own pictures
+
+Last night I ran a 6 class model with a Loss of 1.79 and an Accuracy 0.42. Ran for 50 epochs and 5 hours. I also chose a couple of different categories. While I didn't have time to do much EDA on this model, I did use it to test my own pictures. Here are those results.
+
+![Realistic_Woman](images/my_images/realistic_woman.JPG "Realistic Woman")3D: 0.054<br />Abstract: 0.035<br />Bubble: 0.000<br />Cartoon: 0.158<br />Realistic: 0.739<br />Wildstyle: 0.014
+
+<a name="con"></a>
+
+# Conclusions
+
+Your model can only do as good as your the training data you give it. Curating and making sure that your training data is accurate is a vital first step in training a CNN. 
+
+Before capstone 3 I will verify the training data to see if I can increase the accuracy as well as running longer models.
