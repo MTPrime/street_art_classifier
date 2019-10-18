@@ -90,7 +90,7 @@ def build_model(opt='adam', input_shape=(64, 64, 3), nb_classes = 5, neurons = 6
 if __name__ == '__main__':
     batch_size = 20  
     nb_classes = 6   
-    nb_epoch = 5              
+    nb_epoch = 10              
     img_rows, img_cols = 64, 64  
     input_shape = (img_rows, img_cols, 3)  
     nb_filters = 12  
@@ -110,7 +110,7 @@ if __name__ == '__main__':
                             pool_size = pool_size, 
                             kernel_size = kernel_size)
 
-    art_model.load_weights('6_class_weights.h5', by_name=True)
+    # art_model.load_weights('6_class_weights.h5', by_name=True)
     # art_model = load_model('./models/street_art_cnn_weights_86.h5')
     
     #Checkpoint
