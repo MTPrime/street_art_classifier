@@ -40,11 +40,19 @@ How to deal with inbalanced classes - I wrote a script to balance them through i
 ![Flow_Chart](images/balancing_function.png "Balancing Function")
 
 ## Model With Two Classes
-150x150 
+I chose to start with two classes that had the largest number of images and were very different from each other. Wildstyle is a geometric tagging style while Realistic is more standard images. To a person they are very distinct. How well can a computer tell them apart?
+
+The best model I achieved with just two classes had a loss of 0.2809 and an accuracy of .8929 on the validation set of images. It was run for 3 epochs with an image size of 150x150. 
+
 What the model sees vs what the actual image is.
+What the Model Sees |  Actual Image
+:-------------------------:|:-------------------------:
+![Realistic_Label_Wildstyle_Prediction](images/model_2/piece_by_syde_-_orsay_france17486.jpg "Realistic labeled as Wildstyle")| ![Full_Sized_Image](images/model_view.png "Full Sized Image")|
 
 ### Confusion Matrix
 ![Confusion_Matrix](images/model_2/model_2_confusion_matrix.png "Confusion Matrix")
+
+The biggest area of error was predicting Wildstyle when it was actually Realistic. Let's look at some incorrect images to see if we could see why.
 
 ## Images it got wrong
 
@@ -66,12 +74,8 @@ Again, the image on the left appears to have been mislabeled in the original tra
 This picture on the right actually puzzels me. It appears to be a correct label in the original data, but I am not sure why the model classifies it as realistic. My current hypothesis is that it does not have enough sharp turns. (I would actually label this bubble style, but that was not a classification in the model)
 
 
-![Another_even_split](images/model_2/piece_by_kzed_-_amiens_france16487.jpg "Another even split between Wildstyle and Realistic")Realistic: 0.50048065<br />Wildstyle: 0.4919799<br />Actual - Wildstyle
+![Another_even_split](images/model_2/piece_by_kzed_-_amiens_france16487.jpg "Another even split between Wildstyle and Realistic")<br />Realistic: 0.50048065<br />Wildstyle: 0.4919799<br />Actual - Wildstyle
 
-
-Solarized dark             |  Solarized Ocean
-:-------------------------:|:-------------------------:
-![Even_Split_Realistic_Wildstyle](images/model_2/characters_by_carneiro_-_porto_portugal5391.jpg "Even split between realistic and wildstyle")|  ![Mislabeled_Realistic](images/model_2/characters_by_7same_-_bangkok_thailand6383.jpg "Realistic image mislabled Wildstyle on Fatcap"))
 
 # Model With 5 Classes
 
