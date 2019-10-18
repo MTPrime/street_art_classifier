@@ -8,11 +8,12 @@ Creating a Convolutional Neural Net that can classify street art styles.
 1. [Description](#description)
 2. [Repo Instructions](#repo)
 3. [Web Scraping](#WS)
-4. [Data Processing](#dp)
-5. [Results](#results)
-6. [Summary](#summary)
-7. [Next Steps](#next)
-8. [Conclusions](#con)
+4. [Images of each Style](#is)
+5. [Imbalanced Classes](#ib)
+6. [Model With Two Classes](#2m)
+7. [Model With Five Classes](#5m)
+8. [My Own Pictures](#op)
+9. [Conclusions](#con)
 
 
 <a name="description"></a>
@@ -53,6 +54,9 @@ You'll notice one of the labels on the page is "support". This is actually the s
 |  Brush | 867  | 243 | 
 |  Bubble | 557 | 165 | 
 
+
+<a name="is"></a>
+
 # Images of each Style
 
 *Wildstyle is a complicated and intricate form of graffiti. Due to its complexity, it is often very hard to read by people who are not familiar with it. Usually, this form of graffiti incorporates interwoven and overlapping letters and shapes. It may include arrows, spikes, and other decorative elements depending on the technique used. The numerous layers and shapes make this style extremely difficult to produce homogeneously, which is why developing an original style in this field is seen as one of the greatest artistic challenges to a graffiti writer. Wildstyle pieces are the most complex form of piece ("masterpiece") lettering, a stage higher than the quick simplified stylised letters known as "burners". Wildstyle is seen as one of the most complicated and difficult masterpiece styles and refers to larger complex letters which have volume as opposed to mere signatures or graffiti art "tags"* - Wikipedia
@@ -65,6 +69,9 @@ Bubble |  Cartoon | Brush
 :-------------------------:|:-------------------------:|:-------------------------:
 ![Bubble](images/class_examples/bubble_dubiz_-_frankfurt_1916.jpg "Bubble")| ![Cartoon](images/class_examples/cartoon_nite_owlca177.jpg "Cartoon")| ![Brush](images/class_examples/brush_inkbrushnme_india1276.jpg "Brush")
 
+
+<a name="ib"></a>
+
 ## Inbalanced Classes
 
 Even in the case of my two most popular image classes I still have a significant imbalance in the classes. Since I was working with a very small dataset to begin with I did not want to take images out. Instead of undersamplying I decided to oversample my minority class. I wrote a script to balance them through image augmentation. (Oversampling)
@@ -73,6 +80,8 @@ Even in the case of my two most popular image classes I still have a significant
 
 This worked well and allowed me to trust my model results better.
 
+
+<a name="2m"></a>
 
 # Model With Two Classes
 
@@ -113,6 +122,7 @@ This picture on the right actually puzzels me. It appears to be a correct label 
 
 ![Another_even_split](images/model_2/piece_by_kzed_-_amiens_france16487.jpg "Another even split between Wildstyle and Realistic")<br />Realistic: 0.50048065<br />Wildstyle: 0.4919799<br />Actual - Wildstyle
 
+<a name="5m"></a>
 
 # Model With 5 Classes
 
@@ -121,60 +131,31 @@ Since the two class model was working well I added in the other classes and ran 
 ## Confusion Matrix
 ![Five_Class_CM](images/model_5/5_model_confusion_matrix.png "Five Class Confusion Matrix")
 
-Images it got wrong
+## Images it got wrong
 
-../data/train_test_split/val/realistic/altered_0_6410.jpg
+Mislabeled Realistic |  Mislabeled Realistic
+:-------------------------:|:-------------------------:
+![Mislabeled_Realistic](images/model_5/altered_0_6410.jpg "Realistic Image Mislabeled in 5 class") Cartoon:0.2627398<br />Realistic: 0.13486318<br />3d: 0.34537324<br />Wildstyle: 0.23762368<br />Brush: 0.019400047<br /> Actual - Realistic|![Mislabeled_Realistic](images/model_5/street_art_by_valdi_valdi_-_florida_ny256.jpg "Realistic Image Mislabeled in 5 class")Cartoon: 0.124098696<br />Realistic: 0.023864416<br />3d: 0.3411724<br />Wildstyle: 0.23247054<br />Brush: 0.27839395<br />Actual - Realistic
 
-Cartoon: 0.2627398
-Realistic: 0.13486318
-3d: 0.34537324
-Wildstyle: 0.23762368
-Brush: 0.019400047
-Actual - Realistic
 
-'../data/train_test_split/val/realistic/street_art_by_valdi_valdi_-_florida_(ny)256.jpg'
+Mislabeled Cartoon |  Mislabeled Cartoon
+:-------------------------:|:-------------------------:
+![Mislabeled_Cartoon](images/model_5/street_art_by_pener_-_paris_france12787.jpg "Cartoon Image Mislabeled in 5 class") Cartoon: 0.017569901<br />Realistic: 0.0019160191<br />3d: 0.15066631<br />Wildstyle: 0.0131484615<br />Brush: 0.8166993<br />Actual - Cartoon|![Mislabeled_Cartoon](images/model_5/altered_0_2838.jpg "Cartoon Image Mislabeled in 5 class")Cartoon: 0.21041466<br />Realistic: 0.56883746<br />3d: 0.14603281<br />Wildstyle: 0.06387186<br />Brush: 0.010843233<br />Actual - Cartoon
 
-Cartoon: 0.124098696
-Realistic: 0.023864416
-3d: 0.3411724
-Wildstyle: 0.23247054
-Brush: 0.27839395
-Actual - Realistic
+![Mislabeled_3D](images/model_5/altered_0_1815.jpg "3D Image Mislabeled in 5 class")
 
-'../data/train_test_split/val/cartoon/street_art_by_pener_-_paris_(france)12787.jpg'
-
-Cartoon: 0.017569901
-Realistic: 0.0019160191
-3d: 0.15066631
-Wildstyle: 0.0131484615
-Brush: 0.8166993
-Actual - Cartoon
-
-'../data/train_test_split/val/cartoon/altered_0_2838.jpg'
-
-Cartoon: 0.21041466
-Realistic: 0.56883746
-3d: 0.14603281
-Wildstyle: 0.06387186
-Brush: 0.010843233
-Actual - Cartoon
-
-'../data/train_test_split/val/3d/altered_0_1815.jpg'
-
-Cartoon: 0.29667053
-Realistic: 0.5188742
-3d: 0.11701635
-Wildstyle: 0.05458926
-Brush: 0.012849702
+Cartoon: 0.29667053<br />
+Realistic: 0.5188742<br />
+3d: 0.11701635<br />
+Wildstyle: 0.05458926<br />
+Brush: 0.012849702<br />
 Actual - 3d
 
 
-Which classes got confused together
 
+<a name="op"></a>
 
-
-
-#Running it on my own pictures
+# Running it on my own pictures
 
 Last night I ran a 6 class model with a Loss of 1.79 and an Accuracy 0.42. Ran for 50 epochs and 5 hours. I also chose a couple of different categories. While I didn't have time to do much EDA on this model, I did use it to test my own pictures. Here are those results.
 
