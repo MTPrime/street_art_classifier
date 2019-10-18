@@ -82,6 +82,9 @@ Realistic: 0.50048065
 Wildstyle: 0.4919799
 Actual - Wildstyle
 Even mix. Not sure why
+| | | |
+|:-------------------------:|:-------------------------:|:-------------------------:|
+|<img width="1604" alt="screen shot 2017-08-07 at 12 18 15 pm" src="images/model_2/piece_by_kzed_-_amiens_france16487.jpg">  blah |  <img width="1604" alt="screen shot 2017-08-07 at 12 18 15 pm" src="images/model_2/piece_by_kzed_-_amiens_france16487.jpg">|<img width="1604" alt="screen shot 2017-08-07 at 12 18 15 pm" src="images/model_2/piece_by_kzed_-_amiens_france16487.jpg">|
 
 # Model With 5 Classes
 
