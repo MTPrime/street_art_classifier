@@ -45,6 +45,8 @@ You'll notice one of the labels on the page is "support". This is actually the s
 
 ### Data Overview
 
+There are 22,830 images across 18 art styles.
+
 |  Style | Total Images  |  Wall Only |   
 |--------|---------------|------------|
 |  Wildstyle | 3131  | 2656 | 
@@ -90,6 +92,11 @@ When deciding how to augment the images I decided that color could be a factor i
 I decided to focus on Wildstyle and Realistic at the start both because they have the largest sample size out of the 18 styles, but also because they are very different from each other. Wildstyle is much more geometric and sharp lines focused on letters. Realistic is more portraits and landscapes. To a person they are very distinct. How well can a computer tell them apart?
 
 The best model I achieved with just two classes had a loss of 0.2809 and an accuracy of .8929 on the validation set of images. It was run for 3 epochs with an image size of 150x150, 64 neurons, 16 batch size, and relu activation. I tested many variations on those parameters to come to this model. I selected these settings by trial and error.
+
+Here is an example of my trial and error.
+![Model_exploration](images/model_exploration.png "Model Exploration")
+
+
 
 What the model sees vs what the actual image is.
 
