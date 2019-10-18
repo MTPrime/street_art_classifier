@@ -1,5 +1,5 @@
 # street_art_classifier
-![Header](data/readme_images/my_images/cartoon_minds.JPG "Cartoon Minds")
+![Header](images/my_images/cartoon_minds.JPG "Cartoon Minds")
 
 #Web scraping
 
@@ -29,7 +29,7 @@ Flow chart of my script
 What the model sees vs what the actual image is.
 
 #Confusion Matrix
-
+![Confusion_Matrix](images/model_2/model_2_confusion_matrix.png "Confusion Matrix")
 
 Images it got wrong
 
