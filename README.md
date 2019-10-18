@@ -48,25 +48,12 @@ What the model sees vs what the actual image is.
 
 ## Images it got wrong
 
+Realistic labeled as Wildstyle |  Even Split
+:-------------------------:|:-------------------------:
+![Realistic_Label_Wildstyle_Prediction](images/model_2/piece_by_syde_-_orsay_france17486.jpg "Realistic labeled as Wildstyle") | ![Even_Split_Realistic_Wildstyle](images/model_2/characters_by_carneiro_-_porto_portugal5391.jpg "Even split between realistic and wildstyle")
 
-
-
-| | |
-|:-------------------------:|:-------------------------:|
-|<img width="1604" alt="Realistic_Label_Wildstyle_Prediction" src="images/model_2/piece_by_syde_-_orsay_france17486.jpg">  Realistic: 0.0306063
-    Wildstyle: 0.99052274 Actual - Realistic
-|  <img width="1604" alt="Even_Split_Realistic_Wildstyle" src="images/model_2/characters_by_carneiro_-_porto_portugal5391.jpg">Realistic: 0.42339113
-Wildstyle: 0.51157093
-Actual - Realistic|<img width="1604" alt="Mislabeled_Realistic" src="images/model_2/characters_by_carneiro_-_porto_portugal5391.jpgg">Realistic: 0.93985313
-    Wildstyle: 0.2017667
-    Actual - Wildstyle|
-|<img width="1604" alt="screen shot 2017-08-07 at 12 18 15 pm" src="https://user-images.githubusercontent.com/297678/29892310-03e92256-8d83-11e7-9b58-986dcb6f702e.png">  |  <img width="1604" alt="screen shot 2017-08-07 at 12 18 15 pm" src="https://user-images.githubusercontent.com/297678/29892310-03e92256-8d83-11e7-9b58-986dcb6f702e.png">|<img width="1604" alt="screen shot 2017-08-07 at 12 18 15 pm" src="images/model_2/characters_by_7same_-_bangkok_thailand6383.jpg">|
-|<img width="1604" alt="screen shot 2017-08-07 at 12 18 15 pm" src="https://user-images.githubusercontent.com/297678/29892310-03e92256-8d83-11e7-9b58-986dcb6f702e.png">  |  <img width="1604" alt="screen shot 2017-08-07 at 12 18 15 pm" src="https://user-images.githubusercontent.com/297678/29892310-03e92256-8d83-11e7-9b58-986dcb6f702e.png">|<img width="1604" alt="screen shot 2017-08-07 at 12 18 15 pm" src="https://user-images.githubusercontent.com/297678/29892310-03e92256-8d83-11e7-9b58-986dcb6f702e.png">|
-
-![Realistic_Label_Wildstyle_Prediction](images/model_2/piece_by_syde_-_orsay_france17486.jpg "Realistic labeled as Wildstyle")
-
-    Realistic: 0.0306063
-    Wildstyle: 0.99052274
+Realistic: 0.0306063
+Wildstyle: 0.99052274
 
 Actual - Realistic
 This was labeled realistic by whoever submitted to the website. While there are realistic parts of the image I feel like the Wildstyle section is most prominent. I would consider this a mislabel in the data.
