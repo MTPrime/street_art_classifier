@@ -48,42 +48,49 @@ What the model sees vs what the actual image is.
 
 Images it got wrong
 
-![Realistic_Label_Wildstyle_Prediction](images/model_2/piece_by_syde_-_orsay_(france)17486.jpg "Realistic labeled as Wildstyle")
+![Realistic_Label_Wildstyle_Prediction](images/model_2/piece_by_syde_-_orsay_france17486.jpg "Realistic labeled as Wildstyle")
 
 Realistic: 0.0306063
+
 Wildstyle: 0.99052274
+
 Actual - Realistic
 This was labeled realistic by whoever submitted to the website. While there are realistic parts of the image I feel like the Wildstyle section is most prominent. I would consider this a mislabel in the data.
 
-../data/train_test_split/val/realistic/characters_by_carneiro_-_porto_(portugal)5391.jpg
+![Even_Split_Realistic_Wildstyle](images/model_2/characters_by_carneiro_-_porto_portugal5391.jpg "Even split between realistic and wildstyle")
+
 Realistic: 0.42339113
 Wildstyle: 0.51157093
 Actual - Realistic
 I'm not sure what it is picking up on this one to label it Wildstyle
 
-'../data/train_test_split/val/wildstyle/characters_by_7same_-_bangkok_(thailand)6383.jpg'
+![Mislabeled_Realistic](images/model_2/characters_by_7same_-_bangkok_thailand6383.jpg "Realistic image mislabled Wildstyle on Fatcap")
 Realistic: 0.93985313
 Wildstyle: 0.2017667
 Actual - Wildstyle
 Again, I feel like this is a mislabeld
 
-'../data/train_test_split/val/wildstyle/piece_by_kity_-_marseille_(france)12001.jpg'
+![Actual_bad_prediction](images/model_2/piece_by_kity_-_marseille_france12001.jpg "A bad prediction")
 Realistic: 0.7181519
 Wildstyle: 0.12843975
 Actual - Wildstyle
 This one actually puzzels me. It appears to be a correct label in the original data, but I am not sure why the model classifies it as realistic
 
-'../data/train_test_split/val/wildstyle/piece_by_kzed_-_amiens_(france)16487.jpg'
+![Another_even_split](images/model_2/piece_by_kzed_-_amiens_france16487.jpg "Another even split between Wildstyle and Realistic")
 
 Realistic: 0.50048065
 Wildstyle: 0.4919799
 Actual - Wildstyle
 Even mix. Not sure why
 
-#Model With 5 Classes
+# Model With 5 Classes
 
-Confusion Matrix
+## Confusion Matrix
+![Five_Class_CM](images/model_5/5_model_confusion_matrix.png "Five Class Confusion Matrix")
+
 Images it got wrong
 Which classes got confused together
+
+# Model with 6 Classes
 
 #Running it on my own pictures
