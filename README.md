@@ -98,6 +98,9 @@ Wildstyle: 0.4919799
 Actual - Wildstyle
 Even mix. Not sure why
 
+Solarized dark             |  Solarized Ocean
+:-------------------------:|:-------------------------:
+![Even_Split_Realistic_Wildstyle](images/model_2/characters_by_carneiro_-_porto_portugal5391.jpg "Even split between realistic and wildstyle")|  ![Mislabeled_Realistic](images/model_2/characters_by_7same_-_bangkok_thailand6383.jpg "Realistic image mislabled Wildstyle on Fatcap"))
 
 # Model With 5 Classes
 
