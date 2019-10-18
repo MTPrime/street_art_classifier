@@ -46,13 +46,12 @@ What the model sees vs what the actual image is.
 ### Confusion Matrix
 ![Confusion_Matrix](images/model_2/model_2_confusion_matrix.png "Confusion Matrix")
 
-Images it got wrong
+## Images it got wrong
 
 ![Realistic_Label_Wildstyle_Prediction](images/model_2/piece_by_syde_-_orsay_france17486.jpg "Realistic labeled as Wildstyle")
 
-Realistic: 0.0306063
-
-Wildstyle: 0.99052274
+    Realistic: 0.0306063
+    Wildstyle: 0.99052274
 
 Actual - Realistic
 This was labeled realistic by whoever submitted to the website. While there are realistic parts of the image I feel like the Wildstyle section is most prominent. I would consider this a mislabel in the data.
@@ -65,10 +64,11 @@ Actual - Realistic
 I'm not sure what it is picking up on this one to label it Wildstyle
 
 ![Mislabeled_Realistic](images/model_2/characters_by_7same_-_bangkok_thailand6383.jpg "Realistic image mislabled Wildstyle on Fatcap")
-Realistic: 0.93985313
-Wildstyle: 0.2017667
-Actual - Wildstyle
-Again, I feel like this is a mislabeld
+
+    Realistic: 0.93985313
+    Wildstyle: 0.2017667
+    Actual - Wildstyle
+    Hypothesis - It is mislabeled on the original website.
 
 ![Actual_bad_prediction](images/model_2/piece_by_kity_-_marseille_france12001.jpg "A bad prediction")
 Realistic: 0.7181519
