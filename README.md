@@ -200,6 +200,8 @@ Actual - 3d
 
 Last night I ran a 6 class model with a Loss of 1.79 and an Accuracy 0.42. Ran for 50 epochs and 5 hours. I also chose a couple of different categories. While I didn't have time to do much EDA on this model, I did use it to test my own pictures. Here are those results.
 
+![6_Model_CM](images/6_class_model_cm.png "6 Model CM")
+
 ![Realistic_Woman](images/my_images/realistic_woman.JPG "Realistic Woman")3D: 0.054<br />Abstract: 0.035<br />Bubble: 0.000<br />Cartoon: 0.158<br />Realistic: 0.739<br />Wildstyle: 0.014
 
 ![Cartoon_Meowl](images/my_images/cartoon_meowl.JPG "Cartoon_Meowl")3D: 0.037<br />Abstract: 0.314<br />Bubble: 0.000<br />Cartoon: 0.338<br />Realistic: 0.009<br />Wildstyle: 0.303
