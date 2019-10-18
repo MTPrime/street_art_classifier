@@ -42,7 +42,7 @@ In addition to the image I scraped the meta data available in each page. This ga
 You'll notice one of the labels on the page is "support". This is actually the surface that the street art is created on. Options range from train cars to walls to body art. I wanted the classifier to learn based on the art style, not the structure it was painted on, so I limited my data to only the art done on walls.
 
 ### Data Overview
-
+<p style="text-align: center;"> 
 |  Style | Total Images  |  Wall Only |   
 |--------|---------------|------------|
 |  Wildstyle | 3131  | 2656 | 
@@ -52,7 +52,7 @@ You'll notice one of the labels on the page is "support". This is actually the s
 |  Abstract | 1603  | 784 | 
 |  Brush | 867  | 243 | 
 |  Bubble | 557 | 165 | 
-
+ </p>
 
 # Images of each Style
 
