@@ -88,6 +88,7 @@ When deciding how to augment the images I decided that color could be a factor i
 # Model Architecture
 
 ``` 
+
     model.add(Conv2D(nb_filters, (kernel_size[0], kernel_size[1]),
                     input_shape=input_shape,
                     name="conv-1")) 
