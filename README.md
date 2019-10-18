@@ -1,7 +1,8 @@
 # street_art_classifier
+Creating a Convolutional Neural Net that can classify street art styles.
+
 ![Header](images/my_images/cartoon_minds.JPG "Cartoon Minds")
 
-Creating a Convolutional Neural Net that can classify street art styles.
 
 ## Table of Contents
 
