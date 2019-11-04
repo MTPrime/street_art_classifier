@@ -268,7 +268,7 @@ class TransferClassificationNet(ClassificationNet):
         mc = keras.callbacks.ModelCheckpoint(savename, monitor='val_loss', 
                                              verbose=0, save_best_only=True, 
                                              save_weights_only=False, mode='auto',
-                                             period=1)
+                                             save_freq='epoch')
 
         history = model.fit_generator(self.train_generator,
                                       steps_per_epoch=self.nTrain/self.batch_size,
@@ -316,10 +316,10 @@ def main():
 
     target_size = (100, 100)  # 299,299 is suggested for xception but is quite taxing on cpu
     epochs = 1
-    batch_size = 100
+    batch_size = 16
 
     model_fxn = build_model
-    opt = RMSprop(lr=0.001)
+    opt = Adam(lr=0.001)
 
     simple_cnn = ClassificationNet('simple_class_test', target_size, augmentation_strength=0.2,
                                    preprocessing=preprocess_input, batch_size=batch_size)
