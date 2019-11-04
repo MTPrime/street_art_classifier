@@ -124,11 +124,11 @@ if __name__ == '__main__':
     #Collects urls and saves them to csv
     page_links = get_all_links(1, 760)
     df_links = pd.DataFrame(page_links)
-    df_links.to_csv("/Users/mt/Galvanize/capstones/street_art_classifier-/data/link_list.csv")
+    df_links.to_csv("/Users/mt/Galvanize/capstones/street_art_classifier/data/link_list.csv")
     
     #Loops through urls and saves the images urls and meta data
     df = scrape_pages(page_links)
-    df.to_csv("/Users/mt/Galvanize/capstones/street_art_classifier-/data/meta_data.csv")
+    df.to_csv("/Users/mt/Galvanize/capstones/street_art_classifier/data/meta_data.csv")
 
     #Scrapes actual images
     df_meta = pd.read_csv("data/meta_data_cleaned.csv", index_col=0)
@@ -140,6 +140,6 @@ if __name__ == '__main__':
     image_url_and_title = walls_subset[walls_subset['Style'] == style][['Title', 'Picture_Link']].reset_index()
 
     df_cleaned = save_images(image_url_and_title, style, df_meta)
-    df_cleaned.to_csv("/Users/mt/Galvanize/capstones/street_art_classifier-/data/meta_data_cleaned.csv")
+    df_cleaned.to_csv("/Users/mt/Galvanize/capstones/street_art_classifier/data/meta_data_cleaned.csv")
 
     print(datetime.now() - startTime)
