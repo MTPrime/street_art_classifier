@@ -129,7 +129,7 @@ class ClassificationNet(object):
         mc = keras.callbacks.ModelCheckpoint(savename, monitor='val_loss', 
                                              verbose=0, save_best_only=True, 
                                              save_weights_only=False, mode='auto',
-                                             period=1)
+                                             save_freq='epoch')
 
         history = model.fit_generator(self.train_generator,
                                       steps_per_epoch=self.nTrain/self.batch_size,
