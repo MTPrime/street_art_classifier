@@ -119,29 +119,29 @@ class ClassificationNet(object):
         model.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
 
         # Initialize tensorboard for monitoring
-        # tensorboard = keras.callbacks.TensorBoard(
-        #     log_dir=self.project_name, histogram_freq=0, write_graph=True, embeddings_freq=0)
-        # if not os.path.exists('models'):
-        #     os.makedirs('models')
+        tensorboard = keras.callbacks.TensorBoard(
+            log_dir=self.project_name, histogram_freq=0, write_graph=True, embeddings_freq=0)
+        if not os.path.exists('models'):
+            os.makedirs('models')
 
-        # # Initialize model checkpoint to save best model
-        # savename = 'models/'+self.project_name+'.hdf5'
-        # mc = keras.callbacks.ModelCheckpoint(savename, monitor='val_loss', 
-        #                                      verbose=0, save_best_only=True, 
-        #                                      save_weights_only=False, mode='auto',
-        #                                      save_freq='epoch')
+        # Initialize model checkpoint to save best model
+        savename = 'models/'+self.project_name+'.hdf5'
+        mc = keras.callbacks.ModelCheckpoint(savename, monitor='val_loss', 
+                                             verbose=0, save_best_only=True, 
+                                             save_weights_only=False, mode='auto',
+                                             save_freq='epoch')
 
-        # history = model.fit_generator(self.train_generator,
-        #                               steps_per_epoch=self.nTrain/self.batch_size,
-        #                               epochs=epochs,
-        #                               validation_data=self.validation_generator,
-        #                               validation_steps=self.nVal/self.batch_size,
-        #                               callbacks=[mc, tensorboard])
+        history = model.fit_generator(self.train_generator,
+                                      steps_per_epoch=self.nTrain/self.batch_size,
+                                      epochs=epochs,
+                                      validation_data=self.validation_generator,
+                                      validation_steps=self.nVal/self.batch_size,
+                                      callbacks=[mc, tensorboard])
 
-        # best_model = load_model(savename)
-        # print('evaluating simple model')
-        accuracy = self.evaluate_model(model, self.holdout_folder)
-        # return savename
+        best_model = load_model(savename)
+        print('evaluating simple model')
+        accuracy = self.evaluate_model(best_model, self.holdout_folder)
+        return savename
 
     def evaluate_model(self, model, holdout_folder):
         """
@@ -316,7 +316,7 @@ def main():
 
     target_size = (100, 100)  # 299,299 is suggested for xception but is quite taxing on cpu
     epochs = 1
-    batch_size = 16
+    batch_size = 50
 
     model_fxn = build_model
     opt = Adam(lr=0.001)
