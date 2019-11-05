@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 # from tensorflow.keras.applications.xception import preprocess_input
-from tensorflowlkeras.applications.mobilenet_v2 import preprocess_input
+from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 from tensorflow.keras.models import load_model
 from tensorflow.keras.optimizers import SGD, RMSprop, Adam
 from tensorflow.keras.preprocessing.image import ImageDataGenerator, img_to_array, load_img
