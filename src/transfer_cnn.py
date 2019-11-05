@@ -315,8 +315,8 @@ def main():
     holdout_folder = 'data/train_test_split/test'
 
     target_size = (100, 100)  # 299,299 is suggested for xception but is quite taxing on cpu
-    epochs = 1
-    batch_size = 50
+    epochs = 10
+    batch_size = 16
 
     model_fxn = build_model
     opt = Adam(lr=0.001)
@@ -330,7 +330,7 @@ def main():
     # optimizers = [RMSprop(lr=0.0006), RMSprop(lr=0.0001)] # keep learning rates low to keep from wrecking weights
     optimizers = [Adam(lr=0.0006), Adam(lr=0.0001)]
     
-    warmup_epochs = 1
+    warmup_epochs = 10
     epochs = epochs - warmup_epochs
     transfer_model = TransferClassificationNet('transfer_test', target_size, 
                                                 augmentation_strength=0.2, 
