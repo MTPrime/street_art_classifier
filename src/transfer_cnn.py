@@ -330,7 +330,7 @@ def main():
     # optimizers = [RMSprop(lr=0.0006), RMSprop(lr=0.0001)] # keep learning rates low to keep from wrecking weights
     optimizers = [Adam(lr=0.0006), Adam(lr=0.0001)]
     
-    warmup_epochs = 10
+    warmup_epochs = 5
     epochs = epochs - warmup_epochs
     transfer_model = TransferClassificationNet('transfer_test', target_size, 
                                                 augmentation_strength=0.2, 
