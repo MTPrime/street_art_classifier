@@ -152,7 +152,6 @@ if __name__ == '__main__':
         log_dir='logdir',
         histogram_freq=0, 
         write_graph=True,
-        write_grads=True, 
         update_freq='epoch')
 
 
@@ -161,7 +160,7 @@ if __name__ == '__main__':
 
     mc = callbacks.ModelCheckpoint(
         savename,
-        monitor='val_acc', 
+        monitor='val_accuracy', 
         verbose=0, 
         save_best_only=True, 
         mode='auto', 
