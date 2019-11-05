@@ -168,13 +168,13 @@ if __name__ == '__main__':
         save_freq='epoch')
 
     history = model.fit_generator(train_generator,
-                                      steps_per_epoch=2000/batch_size,
+                                      steps_per_epoch=600,
                                       epochs=nb_epoch,
                                       validation_data=val_generator,
-                                      validation_steps=200/batch_size,
+                                      validation_steps=100,
                                       callbacks=[mc, tensorboard])
     # callbacks = [mc, tensorboard]
-    graph_loss(history, nb_epoch)
+    # graph_loss(history, nb_epoch)
     
     # art_model.load_weights('6_class_weights.h5', by_name=True)
     # art_model = load_model('./models/street_art_cnn_weights_86.h5')
