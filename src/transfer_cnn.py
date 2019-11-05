@@ -6,7 +6,8 @@ import tensorflow.keras as keras
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from tensorflow.keras.applications.xception import preprocess_input
+# from tensorflow.keras.applications.xception import preprocess_input
+from tensorflowlkeras.applications.mobilenet_v2 import preprocess_input
 from tensorflow.keras.models import load_model
 from tensorflow.keras.optimizers import SGD, RMSprop, Adam
 from tensorflow.keras.preprocessing.image import ImageDataGenerator, img_to_array, load_img
@@ -325,13 +326,14 @@ def main():
     simple_cnn.fit(train_folder, validation_folder, holdout_folder, model_fxn, opt, epochs)
 
     model_fxn = create_transfer_model
-    freeze_indices = [132, 126] # first unfreezing only head, then conv block 14
+    freeze_indices = [97,89] # MobileNet
+    # freeze_indices = [132, 126] # first unfreezing only head, then conv block 14
     # optimizers = [RMSprop(lr=0.0006), RMSprop(lr=0.0001)] # keep learning rates low to keep from wrecking weights
     optimizers = [Adam(lr=0.0006), Adam(lr=0.0001)]
     
-    warmup_epochs = 5
+    warmup_epochs = 10
     # epochs = epochs - warmup_epochs
-    epochs = 100
+    epochs = 10
     transfer_model = TransferClassificationNet('transfer_test_all_night', target_size, 
                                                 augmentation_strength=0.2, 
                                                 preprocessing=preprocess_input, 

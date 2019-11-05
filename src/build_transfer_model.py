@@ -1,4 +1,4 @@
-from tensorflow.keras.applications import Xception
+from tensorflow.keras.applications import Xception, MobileNetV2
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Flatten, Dropout
 from tensorflow.keras.models import Model
 
@@ -20,7 +20,7 @@ def add_model_head(base_model, n_categories):
     model = Model(inputs=base_model.input, outputs=predictions)
     return model
 
-def create_transfer_model(input_size, n_categories, weights = 'imagenet', model=Xception):
+def create_transfer_model(input_size, n_categories, weights = 'imagenet', model=MobileNetV2):
     """
     Creates model without top and attaches new head to it
     Args:
