@@ -70,7 +70,6 @@ class ClassificationNet(object):
         # Set parameters for processing and augmenting images
         self.train_datagen = ImageDataGenerator(
             preprocessing_function=self.preprocessing,
-            rotation_range=15*self.augmentation_strength,
             width_shift_range=self.augmentation_strength,
             height_shift_range=self.augmentation_strength,
             shear_range=self.augmentation_strength,
@@ -315,29 +314,30 @@ def main():
     holdout_folder = 'data/train_test_split/test'
 
     target_size = (100, 100)  # 299,299 is suggested for xception but is quite taxing on cpu
-    epochs = 50
+    epochs = 10
     batch_size = 16
 
     model_fxn = build_model
     opt = Adam(lr=0.001)
 
-    simple_cnn = ClassificationNet('20_epoch_my_model', target_size, augmentation_strength=0.2,
+    simple_cnn = ClassificationNet('all_night', target_size, augmentation_strength=0.2,
                                    preprocessing=preprocess_input, batch_size=batch_size)
     simple_cnn.fit(train_folder, validation_folder, holdout_folder, model_fxn, opt, epochs)
 
-    # model_fxn = create_transfer_model
-    # freeze_indices = [132, 126] # first unfreezing only head, then conv block 14
-    # # optimizers = [RMSprop(lr=0.0006), RMSprop(lr=0.0001)] # keep learning rates low to keep from wrecking weights
-    # optimizers = [Adam(lr=0.0006), Adam(lr=0.0001)]
+    model_fxn = create_transfer_model
+    freeze_indices = [132, 126] # first unfreezing only head, then conv block 14
+    # optimizers = [RMSprop(lr=0.0006), RMSprop(lr=0.0001)] # keep learning rates low to keep from wrecking weights
+    optimizers = [Adam(lr=0.0006), Adam(lr=0.0001)]
     
-    # warmup_epochs = 5
+    warmup_epochs = 5
     # epochs = epochs - warmup_epochs
-    # transfer_model = TransferClassificationNet('transfer_test', target_size, 
-    #                                             augmentation_strength=0.2, 
-    #                                             preprocessing=preprocess_input, 
-    #                                             batch_size=batch_size)
-    # transfer_model.fit(train_folder, validation_folder, holdout_folder, model_fxn,
-    #                    optimizers, epochs, freeze_indices, warmup_epochs=warmup_epochs)
+    epochs = 100
+    transfer_model = TransferClassificationNet('transfer_test_all_night', target_size, 
+                                                augmentation_strength=0.2, 
+                                                preprocessing=preprocess_input, 
+                                                batch_size=batch_size)
+    transfer_model.fit(train_folder, validation_folder, holdout_folder, model_fxn,
+                       optimizers, epochs, freeze_indices, warmup_epochs=warmup_epochs)
 
 
 if __name__ == '__main__':
