@@ -95,7 +95,7 @@ def build_model(opt='adam', input_shape=(64, 64, 3), nb_classes = 5, neurons = 6
 def graph_loss(history, epochs):
     #Graphing
     # plot loss during training
-    fig, ax = plt.subplots(4, figsize = (12, 8))
+    fig, ax = plt.subplots(2, figsize = (12, 8))
     ax[0].set_title('Loss')
     ax[0].set_xticks(range(0,epochs+1,5))
     ax[0].plot(history.history['loss'], label='train')
