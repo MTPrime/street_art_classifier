@@ -127,7 +127,7 @@ if __name__ == '__main__':
     #Settings
     batch_size = 20  
     nb_classes = 5   
-    nb_epoch = 100              
+    nb_epoch = 1              
     img_rows, img_cols = 100, 100  
     input_shape = (img_rows, img_cols, 3)  
     nb_filters = 12  
