@@ -126,7 +126,7 @@ def graph_loss(history, epochs):
 if __name__ == '__main__':
     #Settings
     batch_size = 20  
-    nb_classes = 6   
+    nb_classes = 5   
     nb_epoch = 100              
     img_rows, img_cols = 100, 100  
     input_shape = (img_rows, img_cols, 3)  
@@ -155,8 +155,8 @@ if __name__ == '__main__':
         update_freq='epoch')
 
 
-    savename = "{0}_best.h5".format('6_class_model')
-
+    # savename = "{0}_best.h5".format('6_class_model')
+    savename = '5_class_model_best.h5'
 
     mc = callbacks.ModelCheckpoint(
         savename,
@@ -192,5 +192,5 @@ if __name__ == '__main__':
     #         validation_steps=200//batch_size,
     #         use_multiprocessing=True)
     
-    model.save_weights('6_class_weights_test.h5')
-    model.save('6_class_model_test.h5')
+    model.save_weights('5_class_weights_clean.h5')
+    model.save('5_class_model_clean.h5')
