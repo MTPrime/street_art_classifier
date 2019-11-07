@@ -92,55 +92,29 @@ if __name__ == '__main__':
 
     print(autoencoder.summary())
 
-    # tensorboard = callbacks.TensorBoard(
-    #     log_dir='logdir',
-    #     histogram_freq=0, 
-    #     write_graph=True,
-    #     update_freq='epoch')
+    tensorboard = callbacks.TensorBoard(
+        log_dir='logdir',
+        histogram_freq=0, 
+        write_graph=True,
+        update_freq='epoch')
     
-    # savename = 'best_autoencoder_model.h5'
+    savename = 'best_autoencoder_model.h5'
 
-    # mc = callbacks.ModelCheckpoint(
-    #     savename,
-    #     monitor='val_accuracy', 
-    #     verbose=0, 
-    #     save_best_only=True, 
-    #     mode='auto', 
-    #     save_freq='epoch')
+    mc = callbacks.ModelCheckpoint(
+        savename,
+        monitor='val_accuracy', 
+        verbose=0, 
+        save_best_only=True, 
+        mode='auto', 
+        save_freq='epoch')
 
-    # autoencoder_train = autoencoder.fit(x_train, x_train, 
-    #                                     batch_size=batch_size,
-    #                                     epochs=epochs,
-    #                                     verbose=1,
-    #                                     validation_data=(x_test, x_test))#,
-    #                                     # callbacks=[mc, tensorboard])
-
-
-
-    # Convolutional implementation
-    # autoencoder = Autoencoder()
-    
+    autoencoder_train = autoencoder.fit(x_train, x_train, 
+                                        batch_size=batch_size,
+                                        epochs=epochs,
+                                        verbose=1,
+                                        validation_data=(x_test, x_test),
+                                        callbacks=[mc, tensorboard])
 
 
-    # autoencoder.train(x_train, x_test, 50, 2)#, callbacks=[mc, tensorboard])
-    # decoded_imgs = autoencoder.getDecodedImage(x_test)
-
-    # # Convolutional implementation results
-    # # plt.figure(figsize=(20, 20))
-    # # for i in range(10):
-    # #     # Original
-    # #     subplot = plt.subplot(2, 10, i + 1)
-    # #     plt.imshow(x_test[i].reshape(100, 100,3))
-    # #     plt.gray()
-    # #     subplot.get_xaxis().set_visible(False)
-    # #     subplot.get_yaxis().set_visible(False)
-
-    # #     # Reconstruction
-    # #     subplot = plt.subplot(2, 10, i + 11)
-    # #     plt.imshow(decoded_imgs[i].reshape(100,100,3))
-    # #     plt.gray()
-    # #     subplot.get_xaxis().set_visible(False)
-    # #     subplot.get_yaxis().set_visible(False)
-    # # plt.show()
     autoencoder.save_weights('autoencoder_weights.h5')
     autoencoder.save('autoencoder_model.h5')
