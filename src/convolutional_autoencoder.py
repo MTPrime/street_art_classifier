@@ -1,4 +1,4 @@
-from tensorflow.keras.layers import Input, Conv2D, MaxPooling2D, UpSampling2D
+from tensorflow.keras.layers import Input, Conv2D, MaxPooling2D, UpSampling2D, Flatten
 from tensorflow.keras.models import Model
 import matplotlib.pyplot as plt
 import pickle
@@ -60,10 +60,12 @@ def autoencoder(input_img):
     conv1 = Conv2D(32, (3, 3), activation='relu', padding='same')(input_img) #28 x 28 x 32
     pool1 = MaxPooling2D(pool_size=(2, 2))(conv1) #14 x 14 x 32
     conv2 = Conv2D(64, (3, 3), activation='relu', padding='same')(pool1) #14 x 14 x 64
-    code_layer = MaxPooling2D(pool_size=(2, 2))(conv2) #7 x 7 x 64
+    pool2 = MaxPooling2D(pool_size=(2, 2))(conv2) #7 x 7 x 64
     
+    code_layer = Flatten()(pool2)
+
     #decoder
-    conv3 = Conv2D(128, (3, 3), activation='relu', padding='same')(code_layer) #7 x 7 x 128
+    conv3 = Conv2D(128, (3, 3), activation='relu', padding='same')(pool2) #7 x 7 x 128
     up1 = UpSampling2D((2,2))(conv3) # 14 x 14 x 128
     conv4 = Conv2D(64, (3, 3), activation='relu', padding='same')(up1) # 14 x 14 x 64
     up2 = UpSampling2D((2,2))(conv4) # 28 x 28 x 64
