@@ -75,7 +75,7 @@ def autoencoder(input_img):
 if __name__ == '__main__':
 
     # Import data
-    with open('training_img.pkl', 'rb') as f:
+    with open('data/training_img.pkl', 'rb') as f:
         image_array = pickle.load(f)
     train_data = np.array(image_array)
 
