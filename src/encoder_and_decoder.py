@@ -60,6 +60,8 @@ if __name__ == '__main__':
 
     #Building autoencoder
     autoencoder = Model(inputs, decoder(encoder(inputs)), name='autoencoder')
+    autoencoder.compile(loss='mse', optimizer='adam')
+
     print(autoencoder.summary())
 
     # Import data
@@ -82,7 +84,7 @@ if __name__ == '__main__':
         write_graph=True,
         update_freq='epoch')
     
-    savename = 'best_autoencoder_model.h5'
+    savename = 'best_encoder_decoder_model.h5'
 
     mc = callbacks.ModelCheckpoint(
         savename,
