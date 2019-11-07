@@ -104,9 +104,14 @@ def get_encoded(model, x):
     4D numpy array, encoded sample with dimensions up to last conv layer in encoder (e.g., (386, 25, 25, 128))
     """
 
-    get_encoded = K.function([model.layers[0].input], [model.layers[5].output])
+    get_encoded = K.function([model.layers[0].input], [model.layers[6].output])
     encoded_sample = get_encoded([x])[0]
     return encoded_sample
+
+# layer_name = 'encoded'
+# intermediate_layer_model = Model(inputs=model.input,
+#                                  outputs=model.get_layer(layer_name).output)
+# intermediate_output = intermediate_layer_model.predict(data)
 
 if __name__ == '__main__':
 
@@ -116,9 +121,9 @@ if __name__ == '__main__':
     train_data = np.array(image_array)
 
     x_train, train_ground, x_test, test_ground = train_test_split(train_data,
-                                                             train_data, 
-                                                             test_size=0.2, 
-                                                             random_state=42)
+                                                            train_data, 
+                                                            test_size=0.2, 
+                                                            random_state=42)
 
     batch_size = 128
     epochs = 50
