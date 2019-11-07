@@ -8,6 +8,7 @@ from tensorflow.keras.callbacks import ModelCheckpoint
 from tensorflow.keras import callbacks
 from tensorflow import keras
 from tensorflow.keras.models import load_model
+from tensorflow.keras import backend as K
 
 
 # class Autoencoder(object):
@@ -54,23 +55,58 @@ from tensorflow.keras.models import load_model
 #         decoded_image = self._model.predict(encoded_imgs)
 #         return decoded_image
 
-def autoencoder(input_img):
-    #encoder
-    #input = 28 x 28 x 1 (wide and thin)
-    conv1 = Conv2D(32, (3, 3), activation='relu', padding='same')(input_img) #28 x 28 x 32
-    pool1 = MaxPooling2D(pool_size=(2, 2))(conv1) #14 x 14 x 32
-    conv2 = Conv2D(64, (3, 3), activation='relu', padding='same')(pool1) #14 x 14 x 64
-    pool2 = MaxPooling2D(pool_size=(2, 2))(conv2) #7 x 7 x 64
+# def autoencoder(input_img):
+#     #encoder
+#     #input = 28 x 28 x 1 (wide and thin)
+#     conv1 = Conv2D(32, (3, 3), activation='relu', padding='same')(input_img) #28 x 28 x 32
+#     pool1 = MaxPooling2D(pool_size=(2, 2))(conv1) #14 x 14 x 32
+#     conv2 = Conv2D(64, (3, 3), activation='relu', padding='same')(pool1) #14 x 14 x 64
+#     pool2 = MaxPooling2D(pool_size=(2, 2))(conv2) #7 x 7 x 64
     
-    code_layer = Flatten()(pool2)
+#     code_layer = Flatten()(pool2)
+
+#     #decoder
+#     conv3 = Conv2D(128, (3, 3), activation='relu', padding='same')(pool2) #7 x 7 x 128
+#     up1 = UpSampling2D((2,2))(conv3) # 14 x 14 x 128
+#     conv4 = Conv2D(64, (3, 3), activation='relu', padding='same')(up1) # 14 x 14 x 64
+#     up2 = UpSampling2D((2,2))(conv4) # 28 x 28 x 64
+#     decoded = Conv2D(3, (3, 3), activation='sigmoid', padding='same')(up2) # 28 x 28 x 1
+#     return decoded
+
+def autoencoder_model(input_img):
+    #encoder
+    conv1 = Conv2D(32, (3, 3), activation='relu', padding='same')(input_img) #100 100 32
+    pool1 = MaxPooling2D(pool_size=(2, 2))(conv1) # 50 50 32
+    conv2 = Conv2D(64, (3, 3), activation='relu', padding='same')(pool1) #50 50 64
+    pool2 = MaxPooling2D(pool_size=(2, 2))(conv2) # 25 25 64
+    conv3 = Conv2D(128, (3, 3), activation='relu', padding='same')(pool2) #25 25 128
+    encoded = MaxPooling2D((2, 2), padding='same', name='encoder')(conv3) #13 13 128
 
     #decoder
-    conv3 = Conv2D(128, (3, 3), activation='relu', padding='same')(pool2) #7 x 7 x 128
-    up1 = UpSampling2D((2,2))(conv3) # 14 x 14 x 128
-    conv4 = Conv2D(64, (3, 3), activation='relu', padding='same')(up1) # 14 x 14 x 64
-    up2 = UpSampling2D((2,2))(conv4) # 28 x 28 x 64
-    decoded = Conv2D(3, (3, 3), activation='sigmoid', padding='same')(up2) # 28 x 28 x 1
-    return decoded
+    conv4 = Conv2D(128, (3, 3), activation='relu', padding='same')(conv3) #25 25 128
+    up1 = UpSampling2D((2,2))(conv4) #50 50 128
+    conv5 = Conv2D(64, (3, 3), activation='relu', padding='same')(up1) #50 50 64
+    up2 = UpSampling2D((2,2))(conv5) #100 100 64
+    decoded = Conv2D(3, (3, 3), activation='relu', padding='same')(up2) # 100 100 3
+
+    autoencoder = Model(input_img, decoded)
+    autoencoder.compile(loss = 'mean_squared_error', optimizer = 'adam')
+    return autoencoder
+
+def get_encoded(model, x):
+    """Retrieves initial encoder layers of the model
+    Parameters
+    ----------
+    model: neural network with convolutional layer
+    x: images to be encoded
+    Returns
+    -------
+    4D numpy array, encoded sample with dimensions up to last conv layer in encoder (e.g., (386, 25, 25, 128))
+    """
+
+    get_encoded = K.function([model.layers[0].input], [model.layers[5].output])
+    encoded_sample = get_encoded([x])[0]
+    return encoded_sample
 
 if __name__ == '__main__':
 
@@ -89,9 +125,11 @@ if __name__ == '__main__':
     inChannel = 3
     x, y = 100, 100
     input_img = Input(shape = (x, y, inChannel))
-    autoencoder = Model(input_img, autoencoder(input_img))
-    autoencoder.compile(loss='mean_squared_error', optimizer = 'adam')
+    # autoencoder = Model(input_img, autoencoder(input_img))
+    # autoencoder.compile(loss='mean_squared_error', optimizer = 'adam')
 
+    autoencoder = autoencoder_model(input_img)
+    
     print(autoencoder.summary())
 
     tensorboard = callbacks.TensorBoard(
@@ -110,12 +148,21 @@ if __name__ == '__main__':
         mode='auto', 
         save_freq='epoch')
 
-    autoencoder_train = autoencoder.fit(x_train, x_train, 
-                                        batch_size=batch_size,
-                                        epochs=epochs,
-                                        verbose=1,
-                                        validation_data=(x_test, x_test),
-                                        callbacks=[mc, tensorboard])
+    autoencoder.fit(x_train, 
+                    x_train, 
+                    epochs=epochs, 
+                    batch_size=batch_size, 
+                    shuffle=True, 
+                    verbose=1, 
+                    validation_data=(x_test, x_test),
+                    callbacks=[mc, tensorboard])
+
+    # autoencoder_train = autoencoder.fit(x_train, x_train, 
+    #                                     batch_size=batch_size,
+    #                                     epochs=epochs,
+    #                                     verbose=1,
+    #                                     validation_data=(x_test, x_test),
+    #                                     callbacks=[mc, tensorboard])
 
 
     autoencoder.save_weights('autoencoder_weights.h5')
