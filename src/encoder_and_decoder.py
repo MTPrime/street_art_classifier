@@ -52,7 +52,7 @@ if __name__ == '__main__':
     #Building Encoder
     encoder = Model(inputs, encoder(inputs), name='encoder')
     encoder.summary()
-
+    encoder.compile(loss='mse', optimizer='adam')
 
     #Building Decoder
     decoder = Model(latent_inputs, decoder(latent_inputs), name='decoder')
@@ -84,13 +84,14 @@ if __name__ == '__main__':
         write_graph=True,
         update_freq='epoch')
     
-    savename = 'best_encoder_decoder_model.h5'
+    savename = 'best_encoder_decoder_weights.h5'
 
     mc = callbacks.ModelCheckpoint(
         savename,
         monitor='val_loss', 
         verbose=0, 
-        save_best_only=True, 
+        save_best_only=True,
+        save_weights_only=True, 
         mode='auto', 
         save_freq='epoch')
 
