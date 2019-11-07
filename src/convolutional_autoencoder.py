@@ -114,8 +114,8 @@ if __name__ == '__main__':
                                         batch_size=batch_size,
                                         epochs=epochs,
                                         verbose=1,
-                                        validation_data=(x_test, x_test),
-                                        callbacks=[mc, tensorboard])
+                                        validation_data=(x_test, x_test))#,
+                                        # callbacks=[mc, tensorboard])
 
 
 
