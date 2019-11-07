@@ -94,28 +94,28 @@ if __name__ == '__main__':
 
     print(autoencoder.summary())
 
-    # tensorboard = callbacks.TensorBoard(
-    #     log_dir='logdir',
-    #     histogram_freq=0, 
-    #     write_graph=True,
-    #     update_freq='epoch')
+    tensorboard = callbacks.TensorBoard(
+        log_dir='logdir',
+        histogram_freq=0, 
+        write_graph=True,
+        update_freq='epoch')
     
-    # savename = 'best_autoencoder_model.h5'
+    savename = 'best_autoencoder_model.h5'
 
-    # # mc = callbacks.ModelCheckpoint(
-    # #     savename,
-    # #     monitor='val_accuracy', 
-    # #     verbose=0, 
-    # #     save_best_only=True, 
-    # #     mode='auto', 
-    # #     save_freq='epoch')
+    mc = callbacks.ModelCheckpoint(
+        savename,
+        monitor='val_accuracy', 
+        verbose=0, 
+        save_best_only=True, 
+        mode='auto', 
+        save_freq='epoch')
 
     autoencoder_train = autoencoder.fit(x_train, x_train, 
                                         batch_size=batch_size,
                                         epochs=epochs,
                                         verbose=1,
-                                        validation_data=(x_test, x_test))#,
-                                        # callbacks=[mc, tensorboard])
+                                        validation_data=(x_test, x_test),
+                                        callbacks=[mc, tensorboard])
 
 
 
