@@ -83,7 +83,7 @@ if __name__ == '__main__':
                                                              random_state=42)
 
     batch_size = 128
-    epochs = 2
+    epochs = 50
     inChannel = 3
     x, y = 100, 100
     input_img = Input(shape = (x, y, inChannel))
@@ -102,7 +102,7 @@ if __name__ == '__main__':
 
     mc = callbacks.ModelCheckpoint(
         savename,
-        monitor='val_accuracy', 
+        monitor='val_loss', 
         verbose=0, 
         save_best_only=True, 
         mode='auto', 
