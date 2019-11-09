@@ -77,14 +77,16 @@ def build_model(opt='adam', input_shape=(64, 64, 3), nb_classes = 5, neurons = 6
                     (kernel_size[0], kernel_size[1]), padding='same',
                     name='conv-3')) 
     model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=pool_size, name='pool-3')
-    )
+    model.add(MaxPooling2D(pool_size=pool_size, name='pool-3'))
+
+    model.add(Dropout(0.15))
     model.add(Conv2D(nb_filters*3, 
                     (kernel_size[0], kernel_size[1]), padding='same',
                     name='conv-4')) 
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=pool_size, name='pool-4'))
 
+    model.add(Dropout(0.15))
     model.add(Conv2D(nb_filters*3, 
                     (kernel_size[0], kernel_size[1]), padding='same',
                     name='conv-5')) 
@@ -94,7 +96,7 @@ def build_model(opt='adam', input_shape=(64, 64, 3), nb_classes = 5, neurons = 6
     model.add(Flatten())  
     model.add(Dense(neurons))
     model.add(Activation('relu'))
-    model.add(Dropout(0.2))
+    model.add(Dropout(0.4))
     model.add(Dense(nb_classes))
     if nb_classes == 2:
         model.add(Activation('sigmoid'))
