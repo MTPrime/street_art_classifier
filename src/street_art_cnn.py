@@ -77,7 +77,19 @@ def build_model(opt='adam', input_shape=(64, 64, 3), nb_classes = 5, neurons = 6
                     (kernel_size[0], kernel_size[1]), padding='same',
                     name='conv-3')) 
     model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=pool_size, name='pool-3'))
+    model.add(MaxPooling2D(pool_size=pool_size, name='pool-3')
+    )
+    model.add(Conv2D(nb_filters*3, 
+                    (kernel_size[0], kernel_size[1]), padding='same',
+                    name='conv-4')) 
+    model.add(Activation('relu'))
+    model.add(MaxPooling2D(pool_size=pool_size, name='pool-4'))
+
+    model.add(Conv2D(nb_filters*3, 
+                    (kernel_size[0], kernel_size[1]), padding='same',
+                    name='conv-5')) 
+    model.add(Activation('relu'))
+    model.add(MaxPooling2D(pool_size=pool_size, name='pool-4'))
 
     model.add(Flatten())  
     model.add(Dense(neurons))
@@ -169,7 +181,7 @@ if __name__ == '__main__':
         save_best_only=True, 
         mode='auto', 
         save_freq='epoch')
-
+    print(model.summary())
     history = model.fit_generator(train_generator,
                                       steps_per_epoch=600,
                                       epochs=nb_epoch,
