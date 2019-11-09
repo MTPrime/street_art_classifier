@@ -11,6 +11,7 @@ from tensorflow.keras.callbacks import ModelCheckpoint
 from tensorflow.keras.metrics import Precision, Recall 
 import matplotlib.pyplot as plt
 import argparse
+import pandas as pd 
 
 def create_data_generators(directory_path='data/train_test_split/', input_shape=(64, 64), batch_size=16):
     
@@ -144,7 +145,7 @@ if __name__ == '__main__':
     #Settings
     batch_size = 20  
     nb_classes = 5   
-    nb_epoch = 1              
+    nb_epoch = 250              
     img_rows, img_cols = 100, 100  
     input_shape = (img_rows, img_cols, 3)  
     nb_filters = 32  
@@ -189,8 +190,12 @@ if __name__ == '__main__':
                                       validation_data=val_generator,
                                       validation_steps=100,
                                       callbacks=[mc, tensorboard])
+
+    df = pd.DataFrame.from_dict(history.history)
+    df.to_csv('model_loss_and_accuracy.csv')
+
     # callbacks = [mc, tensorboard]
-    graph_loss(history, nb_epoch)
+    # graph_loss(history, nb_epoch)
     
     # art_model.load_weights('6_class_weights.h5', by_name=True)
     # art_model = load_model('./models/street_art_cnn_weights_86.h5')
