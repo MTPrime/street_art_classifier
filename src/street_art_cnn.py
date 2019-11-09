@@ -144,7 +144,7 @@ if __name__ == '__main__':
     #Settings
     batch_size = 20  
     nb_classes = 5   
-    nb_epoch = 300              
+    nb_epoch = 1              
     img_rows, img_cols = 100, 100  
     input_shape = (img_rows, img_cols, 3)  
     nb_filters = 32  
@@ -190,7 +190,7 @@ if __name__ == '__main__':
                                       validation_steps=100,
                                       callbacks=[mc, tensorboard])
     # callbacks = [mc, tensorboard]
-    # graph_loss(history, nb_epoch)
+    graph_loss(history, nb_epoch)
     
     # art_model.load_weights('6_class_weights.h5', by_name=True)
     # art_model = load_model('./models/street_art_cnn_weights_86.h5')
