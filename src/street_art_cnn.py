@@ -63,34 +63,20 @@ def build_model(opt='adam', input_shape=(64, 64, 3), nb_classes = 5, neurons = 6
                     name="conv-1")) 
 
     model.add(Activation('relu'))
-    model.add(Conv2D(nb_filters, (kernel_size[0], kernel_size[1]),
-                    input_shape=input_shape,
-                    padding='same',
-                    name="conv-2")) 
-    model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=pool_size, name='pool-1'))
     model.add(Dropout(0.1))
 
     model.add(Conv2D(nb_filters*2, 
                     (kernel_size[0], kernel_size[1]), padding='same', 
-                    name='conv-3')) 
-    model.add(Activation('relu'))
-    model.add(Conv2D(nb_filters*2, 
-                    (kernel_size[0], kernel_size[1]), padding='same',
-                    name='conv-4')) 
+                    name='conv-2')) 
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=pool_size, name='pool-2'))
-
+    model.add(Dropout(0.15))
 
     model.add(Conv2D(nb_filters*3, 
                     (kernel_size[0], kernel_size[1]), padding='same',
-                    name='conv-5')) 
+                    name='conv-3')) 
     model.add(Activation('relu'))
-    model.add(Conv2D(nb_filters*3, 
-                    (kernel_size[0], kernel_size[1]), padding='same',
-                    name='conv-6')) 
-    model.add(Activation('relu'))
-
     model.add(MaxPooling2D(pool_size=pool_size, name='pool-3'))
 
     model.add(Flatten())  
