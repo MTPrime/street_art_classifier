@@ -58,27 +58,44 @@ def build_model(opt='adam', input_shape=(64, 64, 3), nb_classes = 5, neurons = 6
 
     model.add(Conv2D(nb_filters, (kernel_size[0], kernel_size[1]),
                     input_shape=input_shape,
+                    padding = 'same',
                     name="conv-1")) 
 
     model.add(Activation('relu'))
+    model.add(Conv2D(nb_filters, (kernel_size[0], kernel_size[1]),
+                    input_shape=input_shape,
+                    padding='same',
+                    name="conv-2")) 
+    model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=pool_size, name='pool-1'))
+    model.add(Dropout(0.1))
 
-    model.add(Conv2D(nb_filters, 
-                    (kernel_size[0], kernel_size[1]), 
-                    name='conv-2')) 
+    model.add(Conv2D(nb_filters*2, 
+                    (kernel_size[0], kernel_size[1]), padding='same', 
+                    name='conv-3')) 
+    model.add(Activation('relu'))
+    model.add(Conv2D(nb_filters*2, 
+                    (kernel_size[0], kernel_size[1]), padding='same',
+                    name='conv-4')) 
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=pool_size, name='pool-2'))
 
-    model.add(Conv2D(nb_filters, 
-                    (kernel_size[0], kernel_size[1]), 
-                    name='conv-3')) 
+
+    model.add(Conv2D(nb_filters*3, 
+                    (kernel_size[0], kernel_size[1]), padding='same',
+                    name='conv-5')) 
     model.add(Activation('relu'))
+    model.add(Conv2D(nb_filters*3, 
+                    (kernel_size[0], kernel_size[1]), padding='same',
+                    name='conv-6')) 
+    model.add(Activation('relu'))
+
     model.add(MaxPooling2D(pool_size=pool_size, name='pool-3'))
 
     model.add(Flatten())  
     model.add(Dense(neurons))
     model.add(Activation('relu'))
-    model.add(Dropout(0.5))
+    model.add(Dropout(0.2))
     model.add(Dense(nb_classes))
     if nb_classes == 2:
         model.add(Activation('sigmoid'))
@@ -130,7 +147,7 @@ if __name__ == '__main__':
     nb_epoch = 300              
     img_rows, img_cols = 100, 100  
     input_shape = (img_rows, img_cols, 3)  
-    nb_filters = 12  
+    nb_filters = 32  
     pool_size = (2, 2)
     kernel_size = (3, 3) 
     neurons=128
@@ -156,7 +173,7 @@ if __name__ == '__main__':
 
 
     # savename = "{0}_best.h5".format('6_class_model')
-    savename = '5_class_model_best.h5'
+    savename = '5_class_new_arc_model_best.h5'
 
     mc = callbacks.ModelCheckpoint(
         savename,
@@ -192,5 +209,5 @@ if __name__ == '__main__':
     #         validation_steps=200//batch_size,
     #         use_multiprocessing=True)
     
-    model.save_weights('5_class_weights_clean.h5')
-    model.save('5_class_model_clean.h5')
+    model.save_weights('5_class_new_arc_weights_clean.h5')
+    model.save('5_class_new_arc_model_clean.h5')
