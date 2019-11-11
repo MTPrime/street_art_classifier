@@ -12,7 +12,7 @@ from tensorflow.keras import callbacks
 from tensorflow import keras
 from tensorflow.keras.models import load_model
 
-def encoder(input_img, latent_dim=16):
+def encoder(input_img, latent_dim=50):
  
     #encoder
     conv1 = Conv2D(16, (3, 3), activation='relu', padding='same')(input_img) #100 100 16
