@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os, os.path
 import pandas as pd 
+import glob
 
 def generate_folder_counts(class_names, dm, folder):
     """
@@ -69,10 +70,29 @@ def balance_classes(datagen, class_names, directory_name='./data/train_test_spli
                 except:
                   continue
 
+def resize(file):
+    img = io.imread(file)
+    out = transform.resize(img, (100, 100), anti_aliasing=True)
+    return out
+
+def find_images_in_file_tree(folder):
+    d_name = 'data/img_resized/'
+    for file in glob.glob(d_name + folder + "/*"):
+        formatted = resize(file)
+        base_name = file.split("/")[-1].split(".")[0]
+        name = folder + "/" + base_name + '.jpg'
+        # with open(d_name +name + '.jpg', 'w') as f:
+        #     f.write(formatted)
+        io.imsave(os.path.join(d_name, name), formatted)
+        
 if __name__ == '__main__':
-    
+    class_names = ['bubble', 'cartoon','realistic', 'stencil', 'wildstyle']
+
+    # # Resizing and Rescaling images before further augmentation
+    # for i in class_names:
+    #     find_images_in_file_tree(i)
+
     datagen = ImageDataGenerator(
-            rotation_range=5,
             width_shift_range=0.2,
             height_shift_range=0.2,
             shear_range=0.2,
@@ -80,6 +100,5 @@ if __name__ == '__main__':
             horizontal_flip=True,
             fill_mode='nearest')
 
-    class_names = ['3d', 'abstract', 'bubble', 'cartoon','realistic', 'wildstyle']
 
     balance_classes(datagen, class_names, './data/train_test_split/')

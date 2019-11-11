@@ -92,7 +92,6 @@ def clean_url(url):
    
 def save_images(image_url_and_title, style, df):
     
-
     folder_name = style.lower().replace(" ", "_")
     
     for i in range(len(image_url_and_title)):
@@ -121,19 +120,19 @@ def save_images(image_url_and_title, style, df):
     return df
 
 if __name__ == '__main__':
-    #Collects urls and saves them to csv
-    page_links = get_all_links(1, 760)
-    df_links = pd.DataFrame(page_links)
-    df_links.to_csv("/Users/mt/Galvanize/capstones/street_art_classifier/data/link_list.csv")
+    #Collects urls and saves them to csv - Only need to run once.
+    # page_links = get_all_links(1, 760)
+    # df_links = pd.DataFrame(page_links)
+    # df_links.to_csv("/Users/mt/Galvanize/capstones/street_art_classifier/data/link_list.csv")
     
     #Loops through urls and saves the images urls and meta data
-    df = scrape_pages(page_links)
-    df.to_csv("/Users/mt/Galvanize/capstones/street_art_classifier/data/meta_data.csv")
+    # df = scrape_pages(page_links)
+    # df.to_csv("/Users/mt/Galvanize/capstones/street_art_classifier/data/meta_data.csv")
 
     #Scrapes actual images
     df_meta = pd.read_csv("data/meta_data_cleaned.csv", index_col=0)
     
-    style = 'Abstract'
+    style = 'Stencil'
 
     #Gets the subset of images that are done on Walls and the corresponding style. Broke this into two queries to avoid a warning.
     walls_subset = df_meta[df_meta['Support'] == 'Walls']
