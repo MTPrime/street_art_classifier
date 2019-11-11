@@ -45,7 +45,7 @@ def decoder(latent_inputs, latent_dim=16):
 
 if __name__ == '__main__':
     input_shape = (100, 100, 3)
-    latent_dim =16
+    latent_dim =50
     inputs = Input(shape=input_shape, name='encoder_input')
     latent_inputs  = Input(shape=(latent_dim,), name='decoder_input')
 
