@@ -117,18 +117,6 @@ def graph_loss(history, epochs):
     ax[1].plot(history.history['val_accuracy'], label='test')
     ax[1].legend()
 
-    # ax[2].set_xticks(range(0,epochs+1,5))
-    # ax[2].set_title('Precision')
-    # ax[2].plot(history.history['precision_1'], label='train')
-    # ax[2].plot(history.history['val_precision_1'], label='test')
-    # ax[2].legend()
-
-    # ax[3].set_xticks(range(0,epochs+1,5))
-    # ax[3].set_title('Recall')
-    # ax[3].plot(history.history['recall_1'], label='train')
-    # ax[3].plot(history.history['val_recall_1'], label='test')
-    # ax[3].legend()
-
     plt.savefig('images/model_loss.png')
 
 def create_tensorboard(savename='5_class_new_arc_model_best.h5', monitor_metric='val_accuracty'):
