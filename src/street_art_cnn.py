@@ -64,7 +64,6 @@ def build_model(opt='adam', input_shape=(64, 64, 3), nb_classes = 5, neurons = 6
 
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=pool_size, name='pool-1'))
-    model.add(Dropout(0.1))
 
     model.add(Conv2D(nb_filters*2, 
                     (kernel_size[0], kernel_size[1]), padding='same', 
@@ -84,16 +83,10 @@ def build_model(opt='adam', input_shape=(64, 64, 3), nb_classes = 5, neurons = 6
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=pool_size, name='pool-4'))
 
-    model.add(Conv2D(nb_filters*3, 
-                    (kernel_size[0], kernel_size[1]), padding='same',
-                    name='conv-5')) 
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=pool_size, name='pool-5'))
-
     model.add(Flatten())  
     model.add(Dense(neurons))
     model.add(Activation('relu'))
-    model.add(Dropout(0.4))
+    model.add(Dropout(0.5))
     model.add(Dense(nb_classes))
     if nb_classes == 2:
         model.add(Activation('sigmoid'))
@@ -138,6 +131,27 @@ def graph_loss(history, epochs):
 
     plt.savefig('images/model_loss.png')
 
+def create_tensorboard(savename='5_class_new_arc_model_best.h5', monitor_metric='val_accuracty'):
+    
+    tensorboard = callbacks.TensorBoard(
+        log_dir='logdir',
+        histogram_freq=0, 
+        write_graph=True,
+        update_freq='epoch')
+
+
+    savename = savename
+
+    mc = callbacks.ModelCheckpoint(
+        savename,
+        monitor=monitor_metric, 
+        verbose=0, 
+        save_best_only=True, 
+        mode='auto', 
+        save_freq='epoch')
+    
+    return tensorboard, mc 
+
 if __name__ == '__main__':
     #Settings
     batch_size = 20  
@@ -162,25 +176,10 @@ if __name__ == '__main__':
                             pool_size = pool_size, 
                             kernel_size = kernel_size)
 
-
-    tensorboard = callbacks.TensorBoard(
-        log_dir='logdir',
-        histogram_freq=0, 
-        write_graph=True,
-        update_freq='epoch')
-
-
-    # savename = "{0}_best.h5".format('6_class_model')
-    savename = '5_class_new_arc_model_best.h5'
-
-    mc = callbacks.ModelCheckpoint(
-        savename,
-        monitor='val_accuracy', 
-        verbose=0, 
-        save_best_only=True, 
-        mode='auto', 
-        save_freq='epoch')
+    tensorboard, mc = create_tensorboard(savename='5_class_new_arc_model_best.h5', monitor_metric='val_accuracty')
+    
     print(model.summary())
+
     history = model.fit_generator(train_generator,
                                       steps_per_epoch=600,
                                       epochs=nb_epoch,
@@ -188,28 +187,10 @@ if __name__ == '__main__':
                                       validation_steps=100,
                                       callbacks=[mc, tensorboard])
 
+    #Saves the loss and accuracy as a csv
     df = pd.DataFrame.from_dict(history.history)
     df.to_csv('model_loss_and_accuracy.csv')
 
-    # callbacks = [mc, tensorboard]
-    # graph_loss(history, nb_epoch)
-    
-    # art_model.load_weights('6_class_weights.h5', by_name=True)
-    # art_model = load_model('./models/street_art_cnn_weights_86.h5')
-    
-    #Checkpoint
-    # filepath="weights-improvement-{epoch:02d}-{val_accuracy:.2f}.hdf5"
-    # checkpoint = ModelCheckpoint(filepath, monitor='val_acc', mode='max', save_weights_only=True, save_best_only=True, period=1)
-    # callbacks_list = [checkpoint]
-
-    
-    # art_model.fit_generator(
-    #         train_generator,
-    #         steps_per_epoch=2000//batch_size,
-    #         epochs=nb_epoch,
-    #         validation_data=val_generator,
-    #         validation_steps=200//batch_size,
-    #         use_multiprocessing=True)
-    
+    #Saves the final model as well.    
     model.save_weights('5_class_new_arc_weights_clean.h5')
     model.save('5_class_new_arc_model_clean.h5')
