@@ -12,7 +12,7 @@ from tensorflow.keras import callbacks
 from tensorflow import keras
 from tensorflow.keras.models import load_model
 
-def encoder(input_img, latent_dim=50):
+def encoder(input_img, latent_dim=100):
  
     #encoder
     conv1 = Conv2D(16, (3, 3), activation='relu', padding='same')(input_img) #100 100 16
@@ -45,7 +45,7 @@ def decoder(latent_inputs, latent_dim=16):
 
 if __name__ == '__main__':
     input_shape = (100, 100, 3)
-    latent_dim =50
+    latent_dim =100
     inputs = Input(shape=input_shape, name='encoder_input')
     latent_inputs  = Input(shape=(latent_dim,), name='decoder_input')
 
