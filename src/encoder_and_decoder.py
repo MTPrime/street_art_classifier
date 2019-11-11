@@ -75,7 +75,7 @@ if __name__ == '__main__':
                                                             random_state=42)
 
     batch_size = 128
-    epochs = 100
+    epochs = 10000
  
     
     tensorboard = callbacks.TensorBoard(
