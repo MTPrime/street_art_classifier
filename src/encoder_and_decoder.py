@@ -75,7 +75,7 @@ if __name__ == '__main__':
                                                             random_state=42)
 
     batch_size = 128
-    epochs = 50
+    epochs = 100
  
     
     tensorboard = callbacks.TensorBoard(
@@ -84,14 +84,13 @@ if __name__ == '__main__':
         write_graph=True,
         update_freq='epoch')
     
-    savename = 'best_encoder_decoder_weights.h5'
+    savename = 'best_encoder_decoder.h5'
 
     mc = callbacks.ModelCheckpoint(
         savename,
         monitor='val_loss', 
         verbose=0, 
         save_best_only=True,
-        save_weights_only=True, 
         mode='auto', 
         save_freq='epoch')
 
