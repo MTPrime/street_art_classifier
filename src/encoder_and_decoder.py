@@ -12,8 +12,10 @@ from tensorflow.keras import callbacks
 from tensorflow import keras
 from tensorflow.keras.models import load_model
 
-def encoder(input_img, latent_dim=500):
- 
+def encoder(input_img, latent_dim=50):
+    """
+    Encoder model. Encodes a 100x100x3 image down to a vector of 50 latent topics.
+    """
     #encoder
     conv1 = Conv2D(16, (3, 3), activation='relu', padding='same')(input_img) #100 100 16
     pool1 = MaxPooling2D(pool_size=(2, 2))(conv1) # 50 50 16
@@ -27,7 +29,10 @@ def encoder(input_img, latent_dim=500):
 
     return latent
 
-def decoder(latent_inputs, latent_dim=16):
+def decoder(latent_inputs, latent_dim=50):
+    """
+    Takes the latent vector from the encoder model and decodes it back to original images. 100x100x3
+    """
 
     dense_layer = Dense((25*25*32))(latent_inputs)
     shaped = Reshape((25,25,32))(dense_layer)
@@ -44,15 +49,18 @@ def decoder(latent_inputs, latent_dim=16):
 
 
 if __name__ == '__main__':
+
+    #Inputs
     input_shape = (100, 100, 3)
-    latent_dim =500
+    batch_size = 128
+    epochs = 1000
+    latent_dim =50
     inputs = Input(shape=input_shape, name='encoder_input')
     latent_inputs  = Input(shape=(latent_dim,), name='decoder_input')
 
     #Building Encoder
     encoder = Model(inputs, encoder(inputs), name='encoder')
     encoder.summary()
-    encoder.compile(loss='mse', optimizer='adam')
 
     #Building Decoder
     decoder = Model(latent_inputs, decoder(latent_inputs), name='decoder')
@@ -69,15 +77,13 @@ if __name__ == '__main__':
         image_array = pickle.load(f)
     train_data = np.array(image_array)
 
+    #Train, Test, Split
     x_train, train_ground, x_test, test_ground = train_test_split(train_data,
                                                             train_data, 
                                                             test_size=0.2, 
                                                             random_state=42)
-
-    batch_size = 128
-    epochs = 10000
  
-    
+    #Tensorboard for model checkpoints
     tensorboard = callbacks.TensorBoard(
         log_dir='logdir',
         histogram_freq=0, 
@@ -94,6 +100,7 @@ if __name__ == '__main__':
         mode='auto', 
         save_freq='epoch')
 
+    #Train Autoencoder 
     autoencoder.fit(x_train, 
                     x_train, 
                     epochs=epochs, 
