@@ -78,9 +78,10 @@ def upload():
         file_path = os.path.join(UPLOADPATH, secure_filename(f.filename))
         f.save(file_path)
         # rotate_save(f, file_path)
-        predictions = classify_new_image(file_path, classifier)
+        session['predictions'] = classify_new_image(file_path, classifier)
+
         return redirect(url_for('uploaded_file',
-                        filename=os.path.split(file_path)[1], predictions=predictions))
+                        filename=os.path.split(file_path)[1]))
     if len(os.listdir(UPLOADPATH)) != 0:
         for file in os.listdir(UPLOADPATH):
             os.remove(os.path.join(UPLOADPATH, file))
@@ -88,7 +89,8 @@ def upload():
 
 
 @app.route('/show/<filename><predictions>')
-def uploaded_file(filename, predictions):
+def uploaded_file(filename):
+    predictions = session.get('predictions', None)
     return render_template('predictions.html', filename=filename, predictions=predictions)
 
 @app.route('/uploads/<filename>')
