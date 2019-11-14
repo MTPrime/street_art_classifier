@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  img.upload {
+    height: 50%;
+    width: 50%;
+  }
+  img.recommended {
+    height: 25%;
+    width: 25%;
+  }
+  .column {
+    float: left;
+    width: 33.33%;
+    padding: 5px;
+  }
+  /* .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  } */
+  table {
+    margin-left:auto;
+    margin-right:auto;
+    width:50%;
+  }
+  th {
+    text-align:center;
+  }
+  td {
+    text-align:center;
+  }
+
+</style>
+
+{% if filename %}
+<div class="starter-template">
+    <h1>Click below to classify a new image.</h1>
+      <a href="/predictions" class="btn btn-primary" role="button">New Image!</a>
+  </div>
+{% else %}
+    <div class="container">
+      <div class="starter-template">
+        <h1>Classifier and Recommender</h1>
+        <p class="lead"><font size="4">Click the button below to upload a photo and get a prediction!<br></font>
+          <font size="3">(Please be patient while the model runs.)</font><br><hr />
+          <form id="package_form" action="" method="POST" enctype="multipart/form-data">
+            <div>
+              <p align='center'><input id="upload_button" type="file" class="btn btn-default btn-xs" name="file" accept="image/*" capture required ></p>
+              <p><input id="submit_button" type="submit" class="btn btn-success" value="Upload Photo"><hr /></div>
+              </div>
+            </form>  
+          </p>
+        </div>
+{% endif %}
+<div class="container-fluid">
+{% if filename %}
+<p align='center'>
+  <font size="6">
+    <strong>Your Image!</strong><br>
+  </font>
+</p>
+
+<p align='center'>
+  <img class="upload" src="{{ url_for('send_file', filename=filename) }}"  width="300" height="300"  align="center">
+
+
+  <h2 align='center'>Classifications</h2>
+
+  <table>
+    <tr>
+      <th>Bubble</th>
+      <th>Cartoon</th>
+      <th>Realistic</th>
+      <th>Stencil</th>
+      <th>Wildstyle</th>
+    </tr>
+    <tr>
+      <td>2%</td>
+      <td>95%</td>
+      <td>0%</td>
+      <td>0%</td>
+      <td>3%</td>
+    </tr>
+  </table>
+</p>
+<br>
+<h2 align='center'>Recommendations</h2>
+<div class="row">
+    <div class="column">
+      <img src="{{ url_for('send_file', filename=filename) }}" alt="Snow" style="width:100%">
+    </div>
+    <div class="column">
+      <img src="{{ url_for('send_file', filename=filename) }}" alt="Forest" style="width:100%">
+    </div>
+    <div class="column">
+      <img src="{{ url_for('send_file', filename=filename) }}" alt="Mountains" style="width:100%">
+    </div>
+  </div>
+
+{% else %}
+{% endif %}
+</div>
+
+{% endblock %}

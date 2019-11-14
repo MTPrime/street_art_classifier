@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  body {
+    
+    background-image: url('static/cartoon_minds.jpg');
+    background-size: 100%
+  }
+  @media only screen and (max-width: 600px) {
+      body {
+          background-size: auto;
+      }
+  }
+
+.main {
+  background-color: rgba(255, 255, 255, 0.5);
+  margin-top: 100px;
+  padding-bottom: 50px;
+}
+.starter-template h1 {
+  font-size: 5em;
+  color: white;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+.main h2 {
+  font-size:3em;
+}
+.main p {
+  font-size:2em;
+}
+.buttons {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+button {
+            padding: 1vh 2vw;
+            background-color: rgb(0, 0, 0);
+            color: white;
+            border-radius: 16px;
+            border-color: white; 
+            padding-left: 12px; 
+            padding-right: 12px; 
+            font-size: 16px; 
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: rgba(0,0,0,0);
+            color: rgb(0, 0, 0);
+            border-color: rgb(255, 255, 255);
+        }
+</style>
+</style>
+  
+
+<div class="container">
+
+  <div class="starter-template">
+    <h1>Street Art Classifier</h1>
+  </div>
+</div>
+<div class='buttons'>
+  <form action='/styles', method='POST'>
+    <button type="submit" >Learn About Art Styles</button>
+  </form>
+
+  <form action='/about', method='POST'>
+    <button type="submit" >Learn More About this Project</button>
+  </form>
+
+  <form action='/predictions'>
+    <button type="submit" >Classify a New Image</button>
+  </form>
+
+{% endblock %}
