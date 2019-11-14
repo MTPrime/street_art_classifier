@@ -83,15 +83,15 @@
 </p>
 <br>
 <h2 align='center'>Recommendations</h2>
-<!-- <div class="row">
+<div class="row">
     {% for rec in recommendations %}
     <div class="column">
         <img src="{{url_for('send_rec', filename=rec)}}" alt="street_art" style="width:100%">
     </div>
     {% endfor %}
-  </div> -->
+  </div>
 
-  <img src="{{ url_for('send_rec', filename=filename) }}" alt="test" style="width:100%">
+  <img src="{{ url_for('send_test', filename=filename) }}" alt="test" style="width:100%">
 {% endif %}
 </div>
 

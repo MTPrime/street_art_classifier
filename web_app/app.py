@@ -15,7 +15,7 @@ import pandas as pd
 FILEPATH = os.path.realpath(__file__)
 ROOTPATH = os.path.split(FILEPATH)[0]
 UPLOADPATH = os.path.join(ROOTPATH, 'uploads')
-RECPATH = os.path.join(ROOTPATH, 'data/img_for_auto')
+RECPATH = os.path.join(ROOTPATH, 'static/img_for_auto')
 
 app = Flask(__name__)
 app.secret_key = "sessame"
@@ -109,8 +109,13 @@ def send_file(filename):
     return send_from_directory(UPLOADPATH, filename)
 
 @app.route('/<filename>')
-def send_rec(filename):
+def send_test(filename):
     return send_from_directory('static/img_for_auto/abstract', filename='piece_by_cones_-_san_francisco_(ca)291658.jpg')
+
+@app.route('/<filename>')
+def send_rec(filename):
+    filename.repalace('%28', '(').replace('%29', ')')
+    return send_from_directory(RECPATH, filename=filename)
 
 if __name__ == '__main__':
     encoder_model='data/best_encoder_decoder.h5'
