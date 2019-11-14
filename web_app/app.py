@@ -102,7 +102,7 @@ def upload():
 def uploaded_file(filename):
     predictions = session['predictions']
     recommendations = session['recommendations']
-    return render_template('predictions.html', filename=filename, predictions=json.loads(predictions), recommendations=recommendations)
+    return render_template('predictions.html', filename=filename, predictions=json.loads(predictions), recommendations=json.loads(recommendations))
 
 @app.route('/uploads/<filename>')
 def send_file(filename):
