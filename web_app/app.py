@@ -91,7 +91,7 @@ def upload():
     return render_template('predictions.html')
 
 
-@app.route('/show/<filename><predictions>')
+@app.route('/show/<filename>')
 def uploaded_file(filename):
     predictions = session['predictions']
     return render_template('predictions.html', filename=filename, predictions=json.loads(predictions))
