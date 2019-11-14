@@ -17,7 +17,7 @@ ROOTPATH = os.path.split(FILEPATH)[0]
 UPLOADPATH = os.path.join(ROOTPATH, 'uploads')
 
 app = Flask(__name__)
-
+app.secret_key = "sessame"
 
 def rotate_save(f, file_path):
     try:
