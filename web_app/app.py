@@ -85,9 +85,11 @@ def upload():
         predictions = json.dumps(pred_list)
         session['predictions'] = predictions
 
-        recommendations = make_recommendations(file_path, autoencoder)
+        rec = make_recommendations(file_path, autoencoder)
+        rec_list = rec.tolist()
+        recommendations = json.dumps(rec_list)
         session['recommendations'] = recommendations
-        
+
         return redirect(url_for('uploaded_file',
                         filename=os.path.split(file_path)[1]))
     if len(os.listdir(UPLOADPATH)) != 0:
