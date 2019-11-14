@@ -35,7 +35,7 @@ def make_recommendations(img_file_path, autoencoder, df_filepath='data/encoded_d
     #Retrieve the file path for 3 closest images
     file_paths = files.iloc[top_3]
     # recommended_images = [format_image(i) for i in file_paths]
-    return [file_path.replace("data", 'static') for file_path in file_paths]
+    return [file_path.replace("data/img_for_auto", '') for file_path in file_paths]
     # fig, axs = plt.subplots(1,5, figsize=(20,20))
     # fig.suptitle("Recommended Images", fontsize=36, y=.63)
     # plt.tight_layout()

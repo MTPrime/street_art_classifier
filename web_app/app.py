@@ -109,8 +109,8 @@ def send_file(filename):
     return send_from_directory(UPLOADPATH, filename)
 
 @app.route('/<filename>')
-def send_test(filename):
-    return send_from_directory('static/img_for_auto/abstract/', filename='piece_by_cones_-_san_francisco_(ca)1658.jpg')
+def send_rec(filename):
+    return send_from_directory('static/img_for_auto/', filename=filename)
 
 if __name__ == '__main__':
     encoder_model='data/best_encoder_decoder.h5'
