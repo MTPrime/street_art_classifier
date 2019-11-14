@@ -1,14 +1,61 @@
 {% extends "base.html" %}
 {% block content %}
-
+<style>
+    img.example {
+      height: 50%;
+      width: 50%;
+    }
+    img.recommended {
+      height: 100%;
+      width: 25%;
+    }
+    .column {
+      float: left;
+      width: 33.33%;
+      padding: 5px;
+    }
+    /* .row::after {
+      content: "";
+      clear: both;
+      display: table;
+    } */
+    table {
+      margin-left:auto;
+      margin-right:auto;
+      width:50%;
+    }
+    th {
+      text-align:center;
+    }
+    td {
+      text-align:center;
+    }
+  
+  </style>
 <div class='container'>
   <div class="starter-template">
-    <p class="lead">Learn more about street art styles.<br> Click navigation.</p>
-    <a href='static/cartoon_minds.jpg'></a>
-    <img src="static/test.png" alt="Mountain">
+    <h2>Realistic Style</h2>
+    <img class='example' src="static/examples/realistic_irony_united_kingdom849.jpg" alt="realistic">
+    <p>This is probably the most self explanatory of the different styles. Pieces done in the realistic style try to capture scenes close to real-life. The colors are often less vibrant than the other styles, but not always.</p>
+
+    <h2>Wildstyle</h2>
+    <img class='example' src="static/examples/wildstyle_blen_167_blen_one_-_fajardo_puerto_rico9543.jpg" alt="wildstyle">
+    <p>This tagging style is made up of sharp geometric, interlocking shapes. It can be difficult to decipher words written in this style, but it is very striking in appearance.</p>
+   
+    <h2>Bubble</h2>
+    <img class='example' src="static/examples/piece_by_sufer_-_san_francisco_(ca)1137.jpg" alt="bubble">
+    <p>This is another tagging style like Wildstyle, but here the letters are rounded and curved, creating a bubble like apeparance. Often it is done in multiple colors to give a 3d affect to the letters.</p>
+  
+    <h2>Stencil</h2>
+    <img class='example' src="static/examples/characters_by_siloette_-_san_francisco_(ca)4042.jpg" alt="stencil">
+    <p>This artwork is named after the stencils that it uses. Artist create mdoels out of cardboard or other materials and either spraypaint or a rolling brush. Notable artist Banksy uses this style.</p>
+
+    <h2>Stencil</h2>
+    <img class='example' src="static/examples/street_art_by_sr.x_-_gijon_(spain)17610.jpg" alt="stencil">
+    <p>This artwork is named after the stencils that it uses. Artist create mdoels out of cardboard or other materials and either spraypaint or a rolling brush. Notable artist Banksy uses this style.</p>
+  
   </div>
 </div>
 
-<!-- <img src="../data/cartoon_minds.jpg"> -->
 
 {% endblock %}
