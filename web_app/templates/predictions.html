@@ -14,11 +14,7 @@
     width: 33.33%;
     padding: 5px;
   }
-  /* .row::after {
-    content: "";
-    clear: both;
-    display: table;
-  } */
+
   table {
     margin-left:auto;
     margin-right:auto;
@@ -26,9 +22,11 @@
   }
   th {
     text-align:center;
+    font-size:20;
   }
   td {
     text-align:center;
+    font-size:20;
   }
 
 </style>
@@ -64,7 +62,7 @@
 <p align='center'>
   <img class="upload" src="{{ url_for('send_file', filename=filename) }}"  width="300" height="300"  align="center">
 
-  <h2 align='center'>Classifications</h2>
+  <h1 align='center'>Classifications</h1>
 
   <table>
     <tr>
@@ -82,7 +80,7 @@
   </table>
 </p>
 <br>
-<h2 align='center'>Recommendations</h2>
+<h1 align='center'>Recommendations</h1>
 <div class="row">
     {% for rec in recommendations %}
     <div class="column">
