@@ -91,7 +91,7 @@
     {% endfor %}
   </div>
 
-  <img src="static/img_for_auto/abstract/piece_by_cones_-_san_francisco_(ca)1658.jpg" alt="test" style="width:100%">
+  <img src="{{ url_for('send_test', filename=filename) }}" alt="test" style="width:100%">
 {% endif %}
 </div>
 
