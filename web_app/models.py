@@ -51,7 +51,6 @@ def classify_new_image(img, model):
     """
 
     formatted_img = format_image(img)
-    class_names = sorted(list(model.class_indices.keys()))
     yhat = model.predict(formatted_img.reshape(-1,100,100,3))
     return yhat[0]
     # for i in range(len(class_names)):
