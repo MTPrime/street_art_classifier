@@ -75,11 +75,9 @@
       <th>Wildstyle</th>
     </tr>
     <tr>
-      <td>test</td>
-      <td>test</td>
-      <td>test</td>
-      <td>test</td>
-      <td>test</td>
+    {% for prediction in predictions %}
+    <td>{{prediction}}</td>
+    {% endfor %}
     </tr>
   </table>
 </p>

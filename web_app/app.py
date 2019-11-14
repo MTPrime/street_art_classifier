@@ -19,7 +19,6 @@ UPLOADPATH = os.path.join(ROOTPATH, 'uploads')
 app = Flask(__name__)
 
 
-
 def rotate_save(f, file_path):
     try:
         image = Image.open(f)
@@ -80,13 +79,12 @@ def upload():
         f.save(file_path)
         rotate_save(f, file_path)
         predictions = classify_new_image(os.path.split(file_path)[1], classifier)
-        return predictions
-    #     return redirect(url_for('uploaded_file',
-    #                     filename=os.path.split(file_path)[1], predictions=predictions))
-    # if len(os.listdir(UPLOADPATH)) != 0:
-    #     for file in os.listdir(UPLOADPATH):
-    #         os.remove(os.path.join(UPLOADPATH, file))
-    # return render_template('predictions.html')
+        return redirect(url_for('uploaded_file',
+                        filename=os.path.split(file_path)[1], predictions=predictions))
+    if len(os.listdir(UPLOADPATH)) != 0:
+        for file in os.listdir(UPLOADPATH):
+            os.remove(os.path.join(UPLOADPATH, file))
+    return render_template('predictions.html')
 
 
 @app.route('/show/<filename>')
