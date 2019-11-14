@@ -3,7 +3,7 @@ from models import *
 from flask import Flask, redirect, render_template, request, url_for
 from PIL import Image, ExifTags
 
-from flask import Flask, render_template, flash, request, redirect, url_for, send_from_directory, session
+from flask import Flask, render_template, flash, request, redirect, url_for, send_from_directory, session, json
 import sys
 import os
 from werkzeug.utils import secure_filename
@@ -78,7 +78,10 @@ def upload():
         file_path = os.path.join(UPLOADPATH, secure_filename(f.filename))
         f.save(file_path)
         # rotate_save(f, file_path)
-        session['predictions'] = classify_new_image(file_path, classifier)
+        pred = classify_new_image(file_path, classifier)
+        pred_list = pred.tolist()
+        predictions = json.dumps(pred_list)
+        session['predictions'] = predictions
 
         return redirect(url_for('uploaded_file',
                         filename=os.path.split(file_path)[1]))
@@ -90,8 +93,8 @@ def upload():
 
 @app.route('/show/<filename><predictions>')
 def uploaded_file(filename):
-    predictions = session.get('predictions', None)
-    return render_template('predictions.html', filename=filename, predictions=predictions)
+    predictions = session['predictions']
+    return render_template('predictions.html', filename=filename, predictions=json.loads(predictions))
 
 @app.route('/uploads/<filename>')
 def send_file(filename):
