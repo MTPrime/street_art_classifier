@@ -88,7 +88,7 @@ def upload():
 
 
 @app.route('/show/<filename>')
-def uploaded_file(filename, predictions):
+def uploaded_file(filename):
     return render_template('predictions.html', filename=filename, predictions=predictions)
 
 @app.route('/uploads/<filename>')
