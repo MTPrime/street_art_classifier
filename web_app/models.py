@@ -4,8 +4,8 @@ import pandas as pd
 from skimage import io, transform
 from sklearn.metrics.pairwise import cosine_similarity
 
-# from tensorflow import keras
-# from tensorflow.keras.models import load_model
+from tensorflow import keras
+from tensorflow.keras.models import load_model
 
 
 def format_image(file_path):
