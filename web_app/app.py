@@ -15,6 +15,7 @@ import pandas as pd
 FILEPATH = os.path.realpath(__file__)
 ROOTPATH = os.path.split(FILEPATH)[0]
 UPLOADPATH = os.path.join(ROOTPATH, 'uploads')
+RECPATH = os.path.join(ROOTPATH, 'data/img_for_auto')
 
 app = Flask(__name__)
 app.secret_key = "sessame"
@@ -113,4 +114,5 @@ if __name__ == '__main__':
     classifier_model='data/5_class_model_best.h5'
     classifier = load_model(classifier_model)
     autoencoder = load_model(encoder_model) 
+    app.debug = True
     app.run(app.run(host='0.0.0.0', port=5000, threaded=True))

@@ -32,10 +32,10 @@ def make_recommendations(img_file_path, autoencoder, df_filepath='data/encoded_d
 
     #Slice reverses the array to put the most similar at the start and then takes the top 3.
     top_3 = sorted_recommendations[0][:-4:-1] 
-    #Retrieve the file path for 10 closest images
+    #Retrieve the file path for 3 closest images
     file_paths = files.iloc[top_3]
     # recommended_images = [format_image(i) for i in file_paths]
-    return file_paths
+    return [file_path.replace("data", 'static') for file_path in file_paths]
     # fig, axs = plt.subplots(1,5, figsize=(20,20))
     # fig.suptitle("Recommended Images", fontsize=36, y=.63)
     # plt.tight_layout()
