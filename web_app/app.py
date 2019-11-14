@@ -18,10 +18,7 @@ UPLOADPATH = os.path.join(ROOTPATH, 'uploads')
 
 app = Flask(__name__)
 
-encoder_model='data/best_encoder_decoder.h5'
-classifier_model='data/5_class_model_best.h5'
-classifier = load_model(classifier_model)
-autoencoder = load_model(encoder_model) 
+
 
 def rotate_save(f, file_path):
     try:
@@ -84,12 +81,12 @@ def upload():
         rotate_save(f, file_path)
         predictions = classify_new_image(os.path.split(file_path)[1], classifier)
         return predictions
-        return redirect(url_for('uploaded_file',
-                        filename=os.path.split(file_path)[1], predictions=predictions))
-    if len(os.listdir(UPLOADPATH)) != 0:
-        for file in os.listdir(UPLOADPATH):
-            os.remove(os.path.join(UPLOADPATH, file))
-    return render_template('predictions.html')
+    #     return redirect(url_for('uploaded_file',
+    #                     filename=os.path.split(file_path)[1], predictions=predictions))
+    # if len(os.listdir(UPLOADPATH)) != 0:
+    #     for file in os.listdir(UPLOADPATH):
+    #         os.remove(os.path.join(UPLOADPATH, file))
+    # return render_template('predictions.html')
 
 
 @app.route('/show/<filename>')
@@ -101,5 +98,8 @@ def send_file(filename):
     return send_from_directory(UPLOADPATH, filename)
 
 if __name__ == '__main__':
-
+    encoder_model='data/best_encoder_decoder.h5'
+    classifier_model='data/5_class_model_best.h5'
+    classifier = load_model(classifier_model)
+    autoencoder = load_model(encoder_model) 
     app.run(app.run(host='0.0.0.0', port=5000, threaded=True))
