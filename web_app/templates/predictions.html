@@ -64,8 +64,8 @@
 <p align='center'>
   <img class="upload" src="{{ url_for('send_file', filename=filename) }}"  width="300" height="300"  align="center">
 
-
   <h2 align='center'>Classifications</h2>
+  {% if predictions %}
 
   <table>
     <tr>
@@ -76,13 +76,14 @@
       <th>Wildstyle</th>
     </tr>
     <tr>
-      <td>2%</td>
-      <td>95%</td>
-      <td>0%</td>
-      <td>0%</td>
-      <td>3%</td>
+      <td>{{predictions[0]}}</td>
+      <td>{{predictions[1]}/td>
+      <td>{{predictions[2]}</td>
+      <td>{{predictions[3]}</td>
+      <td>{{predictions[4]}</td>
     </tr>
   </table>
+  {% endif %}
 </p>
 <br>
 <h2 align='center'>Recommendations</h2>
@@ -98,7 +99,6 @@
     </div>
   </div>
 
-{% else %}
 {% endif %}
 </div>
 
