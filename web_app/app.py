@@ -78,7 +78,7 @@ def upload():
         f = request.files["file"]
         file_path = os.path.join(UPLOADPATH, secure_filename(f.filename))
         f.save(file_path)
-        # rotate_save(f, file_path)
+        rotate_save(f, file_path)
         
         #Converts predictions into a json file, which is then cached to be pulled out in the predictions template.
         pred = classify_new_image(file_path, classifier)
@@ -107,10 +107,6 @@ def uploaded_file(filename):
 @app.route('/uploads/<filename>')
 def send_file(filename):
     return send_from_directory(UPLOADPATH, filename)
-
-@app.route('/<filename>')
-def send_test(filename):
-    return send_from_directory('static/img_for_auto/abstract', filename='piece_by_cones_-_san_francisco_(ca)291658.jpg')
 
 @app.route('/static/img_for_auto/<filename>')
 def send_rec(filename):
