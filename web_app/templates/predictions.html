@@ -84,15 +84,11 @@
 <br>
 <h2 align='center'>Recommendations</h2>
 <div class="row">
+    {% for rec in recommendations %}
     <div class="column">
-      <img src="{{ url_for('send_file', filename=filename) }}" alt="Snow" style="width:100%">
+        <img src="rec" alt="street_art" style="width:100%">
     </div>
-    <div class="column">
-      <img src="{{ url_for('send_file', filename=filename) }}" alt="Forest" style="width:100%">
-    </div>
-    <div class="column">
-      <img src="{{ url_for('send_file', filename=filename) }}" alt="Mountains" style="width:100%">
-    </div>
+    {% endfor %}
   </div>
 
 {% endif %}

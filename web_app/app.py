@@ -78,11 +78,16 @@ def upload():
         file_path = os.path.join(UPLOADPATH, secure_filename(f.filename))
         f.save(file_path)
         # rotate_save(f, file_path)
+        
+        #Converts predictions into a json file, which is then cached to be pulled out in the predictions template.
         pred = classify_new_image(file_path, classifier)
         pred_list = pred.tolist()
         predictions = json.dumps(pred_list)
         session['predictions'] = predictions
 
+        recommendations = make_recommendations(file_path, autoencoder)
+        session['recommendations'] = recommendations
+        
         return redirect(url_for('uploaded_file',
                         filename=os.path.split(file_path)[1]))
     if len(os.listdir(UPLOADPATH)) != 0:
@@ -94,7 +99,8 @@ def upload():
 @app.route('/show/<filename>')
 def uploaded_file(filename):
     predictions = session['predictions']
-    return render_template('predictions.html', filename=filename, predictions=json.loads(predictions))
+    recommendations = session['recommendations']
+    return render_template('predictions.html', filename=filename, predictions=json.loads(predictions), recommendations=recommendations)
 
 @app.route('/uploads/<filename>')
 def send_file(filename):
