@@ -82,8 +82,8 @@ def upload():
         
         #Converts predictions into a json file, which is then cached to be pulled out in the predictions template.
         pred = classify_new_image(file_path, classifier)
-        pred_list = pred.tolist()
-        predictions = json.dumps(pred_list)
+        # pred_list = pred.tolist()
+        predictions = json.dumps(pred)
         session['predictions'] = predictions
 
         rec = make_recommendations(file_path, autoencoder)
