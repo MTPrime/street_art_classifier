@@ -3,7 +3,7 @@ from models import *
 from flask import Flask, redirect, render_template, request, url_for
 from PIL import Image, ExifTags
 
-from flask import Flask, render_template, flash, request, redirect, url_for, send_from_directory
+from flask import Flask, render_template, flash, request, redirect, url_for, send_from_directory, session
 import sys
 import os
 from werkzeug.utils import secure_filename
