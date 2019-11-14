@@ -82,6 +82,7 @@ def upload():
         file_path = os.path.join(UPLOADPATH, secure_filename(f.filename))
         f.save(file_path)
         rotate_save(f, file_path)
+        predictions = classify_new_image(os.path.split(file_path)[1], classifier)
         return redirect(url_for('uploaded_file',
                         filename=os.path.split(file_path)[1]))
     if len(os.listdir(UPLOADPATH)) != 0:
