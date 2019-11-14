@@ -53,7 +53,7 @@ def classify_new_image(img, model):
     formatted_img = format_image(img)
     yhat = model.predict(formatted_img.reshape(-1,100,100,3))
     out = np.around(yhat[0], decimals=4)*100
-    return out
+    return [ "{:0.2%}".format(v) for v in out]
     # for i in range(len(class_names)):
     #     print("{} : {:.2f}".format(class_names[i].capitalize(), yhat[0][i]))
     # raw_img = io.imread(img)
